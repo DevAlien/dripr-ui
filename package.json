@@ -1,0 +1,51 @@
+{
+  "name": "redux-boilerplate",
+  "version": "0.0.0",
+  "description": "Redux boilerplate",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=production node index",
+    "dev": "NODE_ENV=development node index",
+    "build": "webpack --stats --progress"
+  },
+  "author": "Tommy Chen <tommy351@gmail.com> (http://zespia.tw)",
+  "repository": "tommy351/redux-boilerplate",
+  "dependencies": {
+    "graceful-fs": "^3.0.6",
+    "immutable": "^3.7.2",
+    "isomorphic-fetch": "^2.1.0",
+    "keymirror": "^0.1.1",
+    "koa": "^0.21.0",
+    "koa-static": "^1.4.9",
+    "lodash": "^3.8.0",
+    "normalize.css": "^3.0.3",
+    "react": "^0.13.3",
+    "redux": "^0.12.0",
+    "serialize-javascript": "^1.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.1",
+    "babel-core": "^5.4.2",
+    "babel-eslint": "^3.1.1",
+    "babel-loader": "^5.1.0",
+    "css-loader": "^0.12.1",
+    "cssnano": "^1.2.0",
+    "eslint": "^0.21.0",
+    "eslint-loader": "^0.11.2",
+    "eslint-plugin-react": "^2.6.3",
+    "extract-text-webpack-plugin": "^0.8.0",
+    "file-loader": "^0.8.4",
+    "jscs": "^1.13.1",
+    "json-loader": "^0.5.2",
+    "minimist": "^1.1.1",
+    "nib": "^1.1.0",
+    "postcss-loader": "^0.4.3",
+    "react-hot-loader": "^1.2.7",
+    "react-router": "^0.13.3",
+    "style-loader": "^0.12.2",
+    "stylus-loader": "^1.2.1",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.9.5",
+    "webpack-dev-server": "^1.8.2"
+  }
+}
