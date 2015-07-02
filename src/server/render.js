@@ -16,42 +16,44 @@ const STATS_PATH = path.join(__dirname, '../../public/build/webpack-stats.json')
 
 let webpackStats;
 
-function* readStats(){
-  if (this.app.env === 'production' && webpackStats){
+function readStats(req){
+  if (req.get('env') === 'production' && webpackStats){
     return Promise.resolve(webpackStats);
   }
 
-  webpackStats = yield readFile(STATS_PATH, 'utf8').then(JSON.parse);
+  return readFile(STATS_PATH).then(content => {
+    webpackStats = JSON.parse(content);
+  });
 }
 
-export default function *(){
-  yield readStats.call(this);
-
-  const redux = createRedux(createDispatcher());
-  const location = new Location(this.path, this.query);
-
-  Router.run(routes(redux), location, (err, initialState, transition) => {
-    if (err){
-      return this.throw(err);
-    }
-
-    if (transition.isCancelled && transition.redirectInfo){
-      return this.redirect(transition.redirectInfo.pathname);
-    }
-
-    let markup = React.renderToString(
-      <Provider redux={redux}>
-        {() => <Router {...initialState}/>}
-      </Provider>
-    );
-
-    let html = React.renderToStaticMarkup(
-      <HtmlDocument redux={redux} markup={markup} stats={webpackStats}/>
-    );
-
+export default function(req, res, next){
+  readStats(req).then(() => {
+    const redux = createRedux(createDispatcher());
+    const location = new Location(req.path, req.query);
     const state = redux.getState();
 
-    this.status = state.AppStore.status;
-    this.body = '<!DOCTYPE html>' + html;
+    state.AppStore.setCSRFToken({csrfToken: req.csrfToken()});
+    state.AppStore.setFirstRender({firstRender: false});
+
+    Router.run(routes(redux), location, (err, initialState, transition) => {
+      if (err) return next(err);
+
+      if (transition.isCancelled && transition.redirectInfo){
+        return req.redirect(transition.redirectInfo.pathname);
+      }
+
+      let markup = React.renderToString(
+        <Provider redux={redux}>
+          {() => <Router {...initialState}/>}
+        </Provider>
+      );
+
+      let html = React.renderToStaticMarkup(
+        <HtmlDocument redux={redux} markup={markup} stats={webpackStats}/>
+      );
+
+      res.status(state.AppStore.getStatus());
+      res.send('<!DOCTYPE html>' + html);
+    });
   });
 }

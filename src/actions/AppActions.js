@@ -13,3 +13,10 @@ export function setStatus(status){
     status
   });
 }
+
+export function setFirstRender(firstRender){
+  this.dispatch({
+    type: ActionTypes.SET_FIRST_RENDER,
+    firstRender
+  });
+}

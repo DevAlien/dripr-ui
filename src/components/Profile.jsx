@@ -7,7 +7,7 @@ import * as UserActions from '../actions/UserActions';
 import bindActions from '../utils/bindActions';
 
 @connect((state, props) => ({
-  user: state.UserStore.users.get(props.params.id)
+  user: state.UserStore.getUser(props.params.id)
 }))
 class Profile extends React.Component {
   render(){
@@ -28,6 +28,8 @@ class Profile extends React.Component {
 }
 
 Profile.onEnter = function(state, transition){
+  if (this.getState().AppStore.isFirstRender()) return;
+
   const {setTitle, setStatus} = bindActions(AppActions, this);
   const {getUser} = bindActions(UserActions, this);
 

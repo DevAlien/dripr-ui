@@ -1,6 +1,24 @@
 import React from 'react';
 import serialize from 'serialize-javascript';
 
+function dehydrate(state){
+  let result = {};
+
+  Object.keys(state).forEach(key => {
+    const store = state[key];
+
+    if (typeof store.dehydrate === 'function'){
+      if (typeof store.shouldDehydrate === 'function' && !store.shouldDehydrate()){
+        return;
+      }
+
+      result[key] = store.dehydrate();
+    }
+  });
+
+  return result;
+}
+
 export default class HtmlDocument extends React.Component {
   static propTypes = {
     redux: React.PropTypes.object.isRequired,
@@ -11,6 +29,7 @@ export default class HtmlDocument extends React.Component {
   render(){
     const {redux, markup, stats} = this.props;
     const state = redux.getState();
+    const dehydratedState = 'window.$STATE=' + serialize(dehydrate(state));
 
     let style = [].concat(
       stats.main.css
@@ -25,12 +44,12 @@ export default class HtmlDocument extends React.Component {
       <html>
         <head>
           <meta charSet="utf-8"/>
-          <title>{state.AppStore.title}</title>
+          <title>{state.AppStore.getTitle()}</title>
           {style.map((href, key) => <link rel="stylesheet" type="text/css" href={href} key={key}/>)}
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{__html: markup}}/>
-          <script dangerouslySetInnerHTML={{__html: 'window.$STATE=' + serialize(state)}}/>
+          <script dangerouslySetInnerHTML={{__html: dehydratedState}}/>
           {script.map((src, key) => <script src={src} key={key} defer/>)}
         </body>
       </html>

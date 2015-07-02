@@ -7,12 +7,16 @@ export default function createStore(Store){
 
     const type = action.type;
 
+    if (state && type === '@@INIT' && typeof store.rehydrate === 'function'){
+      store.rehydrate(state);
+    }
+
     Object.keys(handlers).forEach(key => {
       if (handlers[key] === type){
         store[key].call(store, action);
       }
     });
 
-    return store.state;
+    return store;
   };
 }
