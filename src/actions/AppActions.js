@@ -1,15 +1,15 @@
 import ActionTypes from '../constants/ActionTypes';
 
 export function setTitle(title){
-  return {
+  this.dispatch({
     type: ActionTypes.SET_TITLE,
     title
-  };
+  });
 }
 
 export function setStatus(status){
-  return {
+  this.dispatch({
     type: ActionTypes.SET_STATUS,
     status
-  };
+  });
 }

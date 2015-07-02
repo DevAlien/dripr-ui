@@ -1,21 +1,19 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
-import {bindActionCreators} from 'redux';
 import {connect} from 'redux/react';
 
-import * as AppActions from '../actions/AppActions';
-
 @connect(state => ({
-  AppStore: state.AppStore
+  title: state.AppStore.title
 }))
 export default class App extends React.Component {
-  render(){
-    const {dispatch} = this.props;
+  componentDidUpdate(){
+    if (process.env.BROWSER){
+      document.title = this.props.title;
+    }
+  }
 
+  render(){
     return (
-      <RouteHandler
-        {...this.props}
-        {...bindActionCreators(AppActions, dispatch)}/>
+      <div>{this.props.children}</div>
     );
   }
 }

@@ -10,7 +10,7 @@ export default class HtmlDocument extends React.Component {
 
   render(){
     const {redux, markup, stats} = this.props;
-    const state = 'window.$STATE=' + serialize(redux.getState());
+    const state = redux.getState();
 
     let style = [].concat(
       stats.main.css
@@ -25,12 +25,12 @@ export default class HtmlDocument extends React.Component {
       <html>
         <head>
           <meta charSet="utf-8"/>
-          <title>Redux Boilerplate</title>
+          <title>{state.AppStore.title}</title>
           {style.map((href, key) => <link rel="stylesheet" type="text/css" href={href} key={key}/>)}
         </head>
         <body>
-          <div id="root"></div>
-          <script dangerouslySetInnerHTML={{__html: state}}/>
+          <div id="root" dangerouslySetInnerHTML={{__html: markup}}/>
+          <script dangerouslySetInnerHTML={{__html: 'window.$STATE=' + serialize(state)}}/>
           {script.map((src, key) => <script src={src} key={key} defer/>)}
         </body>
       </html>

@@ -4,11 +4,14 @@ import fs from 'graceful-fs';
 import {createRedux} from 'redux';
 import {Provider} from 'redux/react';
 import Router from 'react-router';
+import Location from 'react-router/lib/Location';
 
-import dispatcher from '../dispatcher';
+import promisify from '../utils/promisify';
 import routes from '../routes';
 import HtmlDocument from './HtmlDocument';
+import createDispatcher from '../utils/createDispatcher';
 
+const readFile = promisify(fs.readFile);
 const STATS_PATH = path.join(__dirname, '../../public/build/webpack-stats.json');
 
 let webpackStats;
@@ -18,48 +21,37 @@ function* readStats(){
     return Promise.resolve(webpackStats);
   }
 
-  webpackStats = yield new Promise((resolve, reject) => {
-    fs.readFile(STATS_PATH, 'utf8', (err, content) => {
-      if (err) return reject(err);
-      resolve(JSON.parse(content));
-    });
-  });
+  webpackStats = yield readFile(STATS_PATH, 'utf8').then(JSON.parse);
 }
 
 export default function *(){
   yield readStats.call(this);
 
-  let isError = false;
-  const redux = createRedux(dispatcher);
-  const router = Router.create({
-    route: routes(redux),
-    location: this.path,
-    onAbort: options => {
-      let path = options.to ? router.makePath(options.to, options.params, options.query) : '/';
-      this.redirect(path);
-    },
-    onError: err => {
-      isError = true;
-      this.throw(err);
+  const redux = createRedux(createDispatcher());
+  const location = new Location(this.path, this.query);
+
+  Router.run(routes(redux), location, (err, initialState, transition) => {
+    if (err){
+      return this.throw(err);
     }
-  });
 
-  router.run((Root, state) => {
-    if (isError) return;
+    if (transition.isCancelled && transition.redirectInfo){
+      return this.redirect(transition.redirectInfo.pathname);
+    }
 
-    let markup = React.renderToString(React.createElement(
-      Provider,
-      {redux},
-      () => React.createElement(Root, null)
-    ));
+    let markup = React.renderToString(
+      <Provider redux={redux}>
+        {() => <Router {...initialState}/>}
+      </Provider>
+    );
 
-    let html = React.renderToStaticMarkup(React.createElement(HtmlDocument, {
-      redux,
-      markup,
-      stats: webpackStats
-    }));
+    let html = React.renderToStaticMarkup(
+      <HtmlDocument redux={redux} markup={markup} stats={webpackStats}/>
+    );
 
-    this.status = 200;
+    const state = redux.getState();
+
+    this.status = state.AppStore.status;
     this.body = '<!DOCTYPE html>' + html;
   });
 }

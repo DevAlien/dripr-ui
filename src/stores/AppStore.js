@@ -1,7 +1,6 @@
 import ActionTypes from '../constants/ActionTypes';
-import createStore from '../utils/createStore';
 
-class AppStore {
+export default class AppStore {
   static handlers = {
     setTitle: ActionTypes.SET_TITLE,
     setStatus: ActionTypes.SET_STATUS
@@ -23,9 +22,7 @@ class AppStore {
     this.state.status = action.status;
   }
 
-  setCSRFToken(status, action){
-    //
+  setCSRFToken(action){
+    this.state.csrfToken = action.csrfToken;
   }
 }
-
-export default createStore(AppStore);

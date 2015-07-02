@@ -4,10 +4,23 @@ import {fork} from 'child_process';
 import serve from 'koa-static';
 import path from 'path';
 import http from 'http';
+import morgan from 'koa-morgan';
+import session from 'koa-session';
 
 const app = koa();
 const argv = minimist(process.argv.slice(2));
+const PRODUCTION = app.env === 'production';
 const PORT = argv.port || 4000;
+
+// Logger
+app.use(morgan.middleware(PRODUCTION ? 'combined' : 'dev'));
+
+// Session
+app.keys = ['keep me secret'];
+app.use(session(app));
+
+// CSRF
+require('koa-csrf')(app);
 
 if (app.env === 'production'){
   app.use(serve(path.join(__dirname, '../../public'), {

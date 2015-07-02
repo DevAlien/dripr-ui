@@ -1,24 +1,16 @@
 import React from 'react';
 import {createRedux} from 'redux';
 import {Provider} from 'redux/react';
-import Router from 'react-router';
-import dispatcher from './dispatcher';
+import {Router} from 'react-router';
+import {history} from 'react-router/lib/BrowserHistory';
+
 import routes from './routes';
+import createDispatcher from './utils/createDispatcher';
 
-const redux = createRedux(dispatcher, window.$STATE);
-const root = document.getElementById('root');
-const router = Router.create({
-  routes: routes(redux),
-  location: Router.HistoryLocation,
-  onError: err => {
-    console.error(err);
-  }
-});
+const redux = createRedux(createDispatcher(), window.$STATE);
 
-router.run((Root, state) => {
-  React.render(React.createElement(
-    Provider,
-    {redux},
-    () => React.createElement(Root, null)
-  ), root);
-});
+React.render(
+  <Provider redux={redux}>
+    {() => <Router history={history} children={routes(redux)}/>}
+  </Provider>
+, document.getElementById('root'));
