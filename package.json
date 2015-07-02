@@ -1,7 +1,7 @@
 {
-  "name": "redux-boilerplate",
+  "name": "redux-example",
   "version": "0.0.0",
-  "description": "Redux boilerplate",
+  "description": "Redux example",
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=production node index",
@@ -9,7 +9,7 @@
     "build": "webpack --stats --progress"
   },
   "author": "Tommy Chen <tommy351@gmail.com> (http://zespia.tw)",
-  "repository": "tommy351/redux-boilerplate",
+  "repository": "tommy351/redux-example",
   "dependencies": {
     "body-parser": "^1.12.4",
     "classnames": "^2.1.1",

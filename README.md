@@ -1,1 +1,1 @@
-# Redux Boilerplate
+# Redux example

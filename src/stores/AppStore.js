@@ -9,7 +9,7 @@ export default class AppStore {
 
   constructor(){
     this.state = {
-      title: 'Redux Boilerplate',
+      title: 'Redux Example',
       status: 200,
       csrfToken: '',
       firstRender: true
