@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --stats --progress",
     "dev": "NODE_ENV=development node index",
+    "eslint": "eslint ./src --ext .js,.jsx",
     "start": "NODE_ENV=production node index"
   },
   "author": "Tommy Chen <tommy351@gmail.com> (http://zespia.tw)",
