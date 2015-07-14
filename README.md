@@ -15,7 +15,7 @@ This is a universal (isomorphic) web application example.
 
 **Start the development server**
 
-The server will run on <localhost:4000>. You can assign other port with `-p` argument. It will also start the Webpack dev server which will run on <localhost:4001>.
+The server will run on [localhost:4000](http://localhost:4000). You can assign other port with `-p` argument. It will also start the Webpack dev server which will run on [localhost:4001](http://localhost:4001).
 
 ``` bash
 $ npm run dev
