@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {connect} from 'redux/react';
+import {connect} from 'react-redux';
 import NotFound from './NotFound';
 import * as AppActions from '../actions/AppActions';
 import * as UserActions from '../actions/UserActions';

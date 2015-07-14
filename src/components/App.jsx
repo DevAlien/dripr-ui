@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'redux/react';
+import {connect} from 'react-redux';
 import bindActions from '../utils/bindActions';
 import * as AppActions from '../actions/AppActions';
 
@@ -8,7 +8,7 @@ import * as AppActions from '../actions/AppActions';
 }))
 class App extends React.Component {
   static contextTypes = {
-    redux: React.PropTypes.object.isRequired
+    store: React.PropTypes.object.isRequired
   }
 
   componentDidUpdate(){
@@ -18,7 +18,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    const {setFirstRender} = bindActions(AppActions, this.context.redux);
+    const {setFirstRender} = bindActions(AppActions, this.context.store);
     setFirstRender(false);
   }
 

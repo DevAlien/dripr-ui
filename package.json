@@ -4,9 +4,9 @@
   "description": "Redux example",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production node index",
+    "build": "webpack --stats --progress",
     "dev": "NODE_ENV=development node index",
-    "build": "webpack --stats --progress"
+    "start": "NODE_ENV=production node index"
   },
   "author": "Tommy Chen <tommy351@gmail.com> (http://zespia.tw)",
   "repository": "tommy351/redux-example",
@@ -26,9 +26,12 @@
     "morgan": "^1.5.3",
     "normalize.css": "^3.0.3",
     "react": "^0.13.3",
+    "react-redux": "^0.2.2",
     "react-router": "^1.0.0-beta3",
-    "redux": "^0.12.0",
-    "serialize-javascript": "^1.0.0"
+    "redux": "^1.0.0-rc",
+    "redux-thunk": "^0.1.0",
+    "serialize-javascript": "^1.0.0",
+    "serve-static": "^1.10.0"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",

@@ -21,14 +21,14 @@ function dehydrate(state){
 
 export default class HtmlDocument extends React.Component {
   static propTypes = {
-    redux: React.PropTypes.object.isRequired,
+    store: React.PropTypes.object.isRequired,
     markup: React.PropTypes.string.isRequired,
     stats: React.PropTypes.object.isRequired
   }
 
   render(){
-    const {redux, markup, stats} = this.props;
-    const state = redux.getState();
+    const {store, markup, stats} = this.props;
+    const state = store.getState();
     const dehydratedState = 'window.$STATE=' + serialize(dehydrate(state));
 
     let style = [].concat(

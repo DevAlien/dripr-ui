@@ -1,16 +1,16 @@
 import React from 'react';
-import {createRedux} from 'redux';
-import {Provider} from 'redux/react';
+import {Provider} from 'react-redux';
 import {Router} from 'react-router';
 import {history} from 'react-router/lib/BrowserHistory';
 
 import routes from './routes';
-import createDispatcher from './utils/createDispatcher';
+import createReducer from './utils/createReducer';
+import createStore from './utils/createStore';
 
-const redux = createRedux(createDispatcher(), window.$STATE);
+const store = createStore(createReducer(), window.$STATE);
 
 React.render(
-  <Provider redux={redux}>
-    {() => <Router history={history} children={routes(redux)}/>}
+  <Provider store={store}>
+    {() => <Router history={history} children={routes(store)}/>}
   </Provider>
 , document.getElementById('root'));

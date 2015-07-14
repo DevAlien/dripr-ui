@@ -1,7 +1,7 @@
 import createRoute from './utils/createRoute';
 
-export default function routes(redux){
-  const r = createRoute.bind(null, redux);
+export default function routes(store){
+  const r = createRoute.bind(null, store);
 
   return {
     ...r(require('./components/App')),

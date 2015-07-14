@@ -1,6 +1,8 @@
 import React from 'react';
+import bindActions from '../utils/bindActions';
+import * as AppActions from '../actions/AppActions';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
@@ -38,3 +40,10 @@ export default class Home extends React.Component {
     });
   }
 }
+
+Home.onEnter = function(state, transition){
+  const {setTitle} = bindActions(AppActions, this);
+  setTitle('Redux example');
+};
+
+export default Home;

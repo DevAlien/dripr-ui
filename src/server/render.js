@@ -1,15 +1,16 @@
 import React from 'react';
 import path from 'path';
 import fs from 'graceful-fs';
-import {createRedux} from 'redux';
-import {Provider} from 'redux/react';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import Router from 'react-router';
 import Location from 'react-router/lib/Location';
 
 import promisify from '../utils/promisify';
 import routes from '../routes';
 import HtmlDocument from './HtmlDocument';
-import createDispatcher from '../utils/createDispatcher';
+import createReducer from '../utils/createReducer';
+// import createStore from '../utils/createStore';
 
 const readFile = promisify(fs.readFile);
 const STATS_PATH = path.join(__dirname, '../../public/build/webpack-stats.json');
@@ -28,32 +29,36 @@ function readStats(req){
 
 export default function(req, res, next){
   readStats(req).then(() => {
-    const redux = createRedux(createDispatcher());
+    const store = createStore(createReducer());
     const location = new Location(req.path, req.query);
-    const state = redux.getState();
+    const state = store.getState();
 
     state.AppStore.setCSRFToken({csrfToken: req.csrfToken()});
     state.AppStore.setFirstRender({firstRender: false});
 
-    Router.run(routes(redux), location, (err, initialState, transition) => {
+    Router.run(routes(store), location, (err, initialState, transition) => {
       if (err) return next(err);
 
-      if (transition.isCancelled && transition.redirectInfo){
-        return req.redirect(transition.redirectInfo.pathname);
+      if (transition.isCancelled){
+        if (transition.redirectInfo){
+          return req.redirect(transition.redirectInfo.pathname);
+        } else {
+          return next(transition.abortReason);
+        }
       }
 
       let markup = React.renderToString(
-        <Provider redux={redux}>
+        <Provider store={store}>
           {() => <Router {...initialState}/>}
         </Provider>
       );
 
       let html = React.renderToStaticMarkup(
-        <HtmlDocument redux={redux} markup={markup} stats={webpackStats}/>
+        <HtmlDocument store={store} markup={markup} stats={webpackStats}/>
       );
 
       res.status(state.AppStore.getStatus());
       res.send('<!DOCTYPE html>' + html);
     });
-  });
+  }).catch(next);
 }
