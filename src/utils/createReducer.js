@@ -7,9 +7,12 @@ function initializeStore(Store){
   store.__isStore__ = true;
   const handlers = Store.handlers;
 
-  return function(state = {}, action){
-    if (!state.__isStore__){
-      store.rehydrate(state);
+  return function(state, action){
+    if (state && !state.__isStore__){
+      if (typeof store.rehydrate === 'function'){
+        store.rehydrate(state);
+      }
+
       return store;
     }
 

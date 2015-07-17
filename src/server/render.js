@@ -10,7 +10,6 @@ import promisify from '../utils/promisify';
 import routes from '../routes';
 import HtmlDocument from './HtmlDocument';
 import createReducer from '../utils/createReducer';
-// import createStore from '../utils/createStore';
 
 const readFile = promisify(fs.readFile);
 const STATS_PATH = path.join(__dirname, '../../public/build/webpack-stats.json');
