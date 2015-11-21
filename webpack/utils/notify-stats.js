@@ -1,18 +1,18 @@
-function notifyError(err){
+function notifyError(err) {
   console.log('\x07' + err);
 }
 
-function notifyWarning(warn){
+function notifyWarning(warn) {
   console.log(warn);
 }
 
-function notifyStats(stats){
+function notifyStats(stats) {
   var json = stats.toJson();
 
-  if (json.errors.length){
+  if (json.errors.length) {
     notifyError(json.errors[0]);
     // json.errors.forEach(notifyError);
-  } else if (json.warnings.length){
+  } else if (json.warnings.length) {
     json.warnings.forEach(notifyWarning);
   } else {
     console.log(stats.toString({

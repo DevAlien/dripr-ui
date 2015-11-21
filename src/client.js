@@ -1,16 +1,23 @@
+require('babel-core/polyfill');
+
 import React from 'react';
-import {Provider} from 'react-redux';
+import {render} from 'react-dom';
+import configureStore from './store/configureStore';
+import Root from './components/Root';
+import {createHistory} from 'history';
+import {ActionTypes} from './constants';
+import getRoutes from './routes';
 import {Router} from 'react-router';
-import {history} from 'react-router/lib/BrowserHistory';
+import {syncReduxAndRouter} from 'redux-simple-router';
 
-import routes from './routes';
-import createReducer from './utils/createReducer';
-import createStore from './utils/createStore';
+const store = configureStore(window.$STATE);
+const history = createHistory();
+const routes = getRoutes(store);
 
-const store = createStore(createReducer(), window.$STATE);
+store.dispatch({type: ActionTypes.REHYDRATE});
+syncReduxAndRouter(history, store);
 
-React.render(
-  <Provider store={store}>
-    {() => <Router history={history} children={routes(store)}/>}
-  </Provider>
-, document.getElementById('root'));
+render(
+  <Root store={store}>
+    <Router routes={routes} history={history}/>
+  </Root>, document.getElementById('root'));

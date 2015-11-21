@@ -1,22 +1,24 @@
-import createRoute from './utils/createRoute';
+import App from './components/pages/App';
+import Home from './components/pages/Home';
+import Profile from './components/pages/Profile';
+import NotFound from './components/pages/NotFound';
 
-export default function routes(store){
-  const r = createRoute.bind(null, store);
-
+export default function getRoutes(store) {
   return {
-    ...r(require('./components/App')),
+    component: App,
     childRoutes: [
       {
         path: '/',
-        ...r(require('./components/Home'))
+        component: Home
       },
       {
         path: '/users/:id',
-        ...r(require('./components/Profile'))
+        component: Profile,
+        onEnter: Profile.onEnter(store)
       },
       {
         path: '*',
-        ...r(require('./components/NotFound'))
+        component: NotFound
       }
     ]
   };

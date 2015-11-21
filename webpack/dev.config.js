@@ -1,65 +1,92 @@
-import config from './config';
-import {merge} from 'lodash';
+import merge from 'lodash/object/merge';
 import webpack from 'webpack';
+import fs from 'graceful-fs';
+import path from 'path';
+import * as config from './config';
+import writeStats from './utils/write-stats';
 import notifyStats from './utils/notify-stats';
-import minimist from 'minimist';
 
-const argv = minimist(process.argv.slice(2));
-const WEBPACK_HOST = argv.host || 'localhost';
-const WEBPACK_PORT = argv.port ? parseInt(argv.port, 10) + 1 : 4001;
+const babelrc = JSON.parse(fs.readFileSync(path.join(__dirname, '../.babelrc'), 'utf8'));
 
-export default merge({}, config, {
-  server: {
-    host: WEBPACK_HOST,
-    port: WEBPACK_PORT
-  },
+export const client = merge({}, config.client, {
   devtool: 'eval',
   entry: {
-    main: [].concat([
-      `webpack-dev-server/client?http://${WEBPACK_HOST}:${WEBPACK_PORT}`,
-      'webpack/hot/only-dev-server'
-    ], config.entry.main)
+    main: [
+      'webpack-hot-middleware/client'
+    ].concat(config.client.entry.main)
   },
   module: {
-    loaders: config.module.loaders.concat([
+    loaders: config.client.module.loaders.concat([
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
-        exclude: /node_modules/
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: merge({}, babelrc, {
+          plugins: [
+            'react-transform'
+          ],
+          extra: {
+            'react-transform': {
+              transforms: [
+                {
+                  transform: 'react-transform-hmr',
+                  imports: ['react'],
+                  locals: ['module']
+                },
+                {
+                  transform: 'react-transform-catch-errors',
+                  imports: ['react', 'redbox-react']
+                }
+              ]
+            }
+          }
+        })
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss'
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style!css!postcss!stylus'
+        loader: 'style!css'
       }
     ])
   },
-  output: {
-    publicPath: `http://${WEBPACK_HOST}:${WEBPACK_PORT}/build/`
-  },
-  plugins: config.plugins.concat([
+  plugins: config.client.plugins.concat([
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
 
-    // env variables
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development'),
-        BROWSER: JSON.stringify(true)
-      }
-    }),
-
     // optimize
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
 
     // stats
-    function(){
+    function() {
+      this.plugin('done', writeStats);
       this.plugin('done', notifyStats);
     }
   ])
 });
+
+export const server = merge({}, config.server, {
+  module: {
+    loaders: config.server.module.loaders.concat([
+      {
+        test: /\.jsx?$/,
+        loader: 'babel',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: 'null'
+      }
+    ])
+  },
+  plugins: config.server.plugins.concat([
+    new webpack.NoErrorsPlugin(),
+
+    // optimize
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurenceOrderPlugin()
+  ])
+});
+
+export default [client, server];

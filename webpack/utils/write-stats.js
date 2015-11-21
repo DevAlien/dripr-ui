@@ -4,7 +4,7 @@ import mkdirs from './mkdirs';
 
 const STATS_FILENAME = 'webpack-stats.json';
 
-function writeStats(stats){
+function writeStats(stats) {
   let publicPath = this.options.output.publicPath;
   let json = stats.toJson();
   let chunks = json.assetsByChunkName;
@@ -19,7 +19,7 @@ function writeStats(stats){
     assets.forEach(asset => {
       let extname = pathFn.extname(asset).substring(1);
 
-      if (!chunkContent.hasOwnProperty(extname)){
+      if (!chunkContent.hasOwnProperty(extname)) {
         chunkContent[extname] = [];
       }
 
