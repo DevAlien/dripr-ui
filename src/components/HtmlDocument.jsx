@@ -33,6 +33,7 @@ export default class HtmlDocument extends React.Component {
           <meta charSet='utf-8'/>
           <title>{app.title}</title>
           <meta httpEquiv='X-UA-Compatible' content='IE=edge'/>
+          <link href='//fonts.googleapis.com/css?family=Roboto:400,300italic,300' rel='stylesheet' type='text/css' />
           {styles.map((href, key) => <link rel='stylesheet' type='text/css' href={href} key={key}/>)}
         </head>
         <body>

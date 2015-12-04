@@ -1,5 +1,8 @@
 import App from './components/pages/App';
 import Home from './components/pages/Home';
+import Login from './components/pages/Login';
+import List from './components/pages/List';
+import File from './components/pages/File';
 import Profile from './components/pages/Profile';
 import NotFound from './components/pages/NotFound';
 
@@ -12,6 +15,26 @@ export default function getRoutes(store) {
         component: Home
       },
       {
+        path: '/logout',
+        component: Home,
+        onEnter: Home.onEnterLogout(store)
+      },
+      {
+        path: '/login',
+        component: Login
+      },
+      {
+        path: '/list',
+        component: List,
+        onEnter: List.onEnter(store)
+      },
+      {
+        path: '/file/:id',
+        name: 'dhd',
+        component: File,
+        onEnter: File.onEnter(store)
+      },
+      {
         path: '/users/:id',
         component: Profile,
         onEnter: Profile.onEnter(store)
@@ -20,6 +43,7 @@ export default function getRoutes(store) {
         path: '*',
         component: NotFound
       }
-    ]
+    ],
+    onEnter: App.onEnter(store)
   };
 }

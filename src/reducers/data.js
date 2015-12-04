@@ -2,35 +2,29 @@ import {handleActions} from 'redux-actions';
 import Immutable, {OrderedMap} from 'immutable';
 import {ActionTypes} from '../constants';
 
-function writeCookie(name,value,days) {
-    var date, expires;
-    if (days) {
-        date = new Date();
-        date.setTime(date.getTime()+(days*24*60*60*1000));
-        expires = "; expires="+date.toGMTString();}
-    else{
-        expires = "";
-    }
-    document.cookie = name+"="+value+expires+"; path=/";
-}
-
-function readCookie(name) {
-    var i, c, ca, nameEQ = name + "=";
-    ca = document.cookie.split(';');
-    for(i=0;i < ca.length;i++) {
-        c = ca[i];
-        while (c.charAt(0)==' ') {
-            c = c.substring(1,c.length);
-        }
-        if (c.indexOf(nameEQ) == 0) {
-            return c.substring(nameEQ.length,c.length);
-        }
-    }
-    return '';
-}
-
 export default handleActions({
-
+  [ActionTypes.DATA]: state => {
+      return {
+        ...state,
+        loading: true
+      }
+  },
+  [ActionTypes.DATA_SUCCESS]: (state, action) => {
+    console.log('ads')
+    console.log(action.result)
+    return {
+    ...state,
+    loading: false,
+    loaded: true,
+    data: action.result
+  }},
+  [ActionTypes.DATA_FAILED]: state => {
+    console.log('ads')
+    return {
+    ...state,
+    loading: false,
+    loaded: false
+  }}
 
   // ,
   // [ActionTypes.DEHYDRATE]: state => {

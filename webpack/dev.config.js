@@ -52,7 +52,13 @@ export const client = merge({}, config.client, {
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-
+    new webpack.DefinePlugin({
+         __CLIENT__: true,
+         __SERVER__: false,
+         __DEVELOPMENT__: true,
+         __DEVTOOLS__: true,
+         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+       }),
     // optimize
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
     new webpack.optimize.DedupePlugin(),
@@ -82,7 +88,13 @@ export const server = merge({}, config.server, {
   },
   plugins: config.server.plugins.concat([
     new webpack.NoErrorsPlugin(),
-
+    new webpack.DefinePlugin({
+         __CLIENT__: false,
+         __SERVER__: true,
+         __DEVELOPMENT__: true,
+         __DEVTOOLS__: true,
+         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+       }),
     // optimize
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin()

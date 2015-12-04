@@ -1,6 +1,7 @@
-# Redux example
+# Dripr UI
 
-This is a universal (isomorphic) web application example.
+Dripr is a screenshot/file sharing platform, similar to cloudapp.
+This is a universal (isomorphic) web application usign some cool features.
 
 ## We used
 

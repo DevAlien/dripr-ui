@@ -2,21 +2,29 @@ import React from 'react';
 import {renderToString, renderToStaticMarkup} from 'react-dom/server';
 import {match, RoutingContext} from 'react-router';
 import getRoutes from './routes';
-
+import cookie from 'cookie'
 import HtmlDocument from './components/HtmlDocument';
 import configureStore from './store/configureStore.prod';
 import Root from './components/Root.prod';
+import apiClient from './apiClient';
 
 export default function createHtmlResponse({webpackStats, request}, callback) {
+
+  console.log('udheuhdeuh')
+  const cookies = cookie.parse(request.headers.cookie || '');
+  console.log(cookies)
+  console.log(apiClient)
   const initialState = {
     app: {
       status: 200,
       title: 'Redux example',
-      fetchForServerRendering: true
+      fetchForServerRendering: true,
+      authInfo: cookies.driprauth,
+      loggedIn: cookies.driprauth ? true : false
     }
   };
+  const store = configureStore(initialState, apiClient(cookies.driprauth));
 
-  const store = configureStore(initialState);
   const routes = getRoutes(store);
 
   match({

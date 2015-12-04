@@ -4,9 +4,11 @@ import nodeify from 'nodeify';
 
 import {getUser} from '../../actions/users';
 
-@connect((state, props) => ({
+@connect((state, props) => {
+  console.log('connect')
+  return {
   user: state.users.store.get(props.params.id)
-}))
+}})
 class Profile extends React.Component {
   static propTypes = {
     user: PropTypes.object
@@ -35,6 +37,7 @@ class Profile extends React.Component {
 }
 
 Profile.onEnter = store => (nextState, replaceState, callback) => {
+  console.log('onEnter')
   const {id} = nextState.params;
   const {users} = store.getState();
 

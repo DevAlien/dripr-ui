@@ -12,7 +12,7 @@ const PUBLIC_PATH = path.join(__dirname, '../public');
 if (process.env.NODE_ENV === 'development') {
   const webpackConfig = require('../webpack/dev.config').client;
   const compiler = webpack(webpackConfig);
-
+  console.log(webpackConfig.output.publicPath)
   server.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath

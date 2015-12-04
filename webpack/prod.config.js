@@ -28,7 +28,13 @@ export const client = merge({}, config.client, {
     new ExtractTextPlugin('[name]-[contenthash:8].css', {
       allChunks: true
     }),
-
+    new webpack.DefinePlugin({
+         __CLIENT__: true,
+         __SERVER__: false,
+         __DEVELOPMENT__: false,
+         __DEVTOOLS__: false,
+         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+       }),
     // optimize
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[hash:8].js'),
     new webpack.optimize.DedupePlugin(),
@@ -62,7 +68,13 @@ export const server = merge({}, config.server, {
   },
   plugins: config.server.plugins.concat([
     new webpack.NoErrorsPlugin(),
-
+    new webpack.DefinePlugin({
+         __CLIENT__: false,
+         __SERVER__: true,
+         __DEVELOPMENT__: false,
+         __DEVTOOLS__: false,
+         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+       }),
     // optimize
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),

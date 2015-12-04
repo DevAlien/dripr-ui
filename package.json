@@ -1,7 +1,7 @@
 {
-  "name": "redux-example",
+  "name": "driprui",
   "version": "0.0.0",
-  "description": "Redux example",
+  "description": "Dripr UI",
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=production webpack --stats --progress",
@@ -10,13 +10,17 @@
     "jscs": "jscs .",
     "start": "NODE_ENV=production node index"
   },
-  "author": "Tommy Chen <tommy351@gmail.com> (http://zespia.tw)",
-  "repository": "tommy351/redux-example",
+  "author": "Goncalo Margalho <gsky89@gmail.com> (http://zespia.tw)",
+  "repository": "DevAlien/dripr-ui",
   "dependencies": {
     "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
     "classnames": "^2.1.5",
+    "cookie": "*",
+    "cookie-session": "^1.2.0",
+    "csurf": "^1.8.3",
     "express": "^4.13.3",
+    "filesize": "^3.1.4",
     "graceful-fs": "^4.1.2",
     "history": "^1.12.6",
     "immutable": "^3.7.5",
@@ -27,6 +31,7 @@
     "normalize.css": "^3.0.3",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "react-dropzone": "^3.1.0",
     "react-redux": "^4.0.0",
     "react-router": "^1.0.0",
     "redux": "^3.0.2",

@@ -2,9 +2,10 @@ import {persistState} from 'redux-devtools';
 import DevTools from '../components/DevTools';
 import composeStore from './composeStore';
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState, client) {
   const store = composeStore(
     initialState,
+    client,
     DevTools.instrument(),
     persistState(
       window.location.href.match(

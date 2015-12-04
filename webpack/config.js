@@ -60,7 +60,8 @@ export const server = merge({}, commonConfig, {
     pathinfo: true,
     path: path.join(__dirname, '../server/build'),
     filename: '[name].js',
-    chunkFilename: '[name].js'
+    chunkFilename: '[name].js',
+    publicPath: '/build/'
   },
   externals: fs.readdirSync(path.join(__dirname, '../node_modules'))
     .map(key => new RegExp(`^${key}`))
