@@ -3,12 +3,13 @@ import {connect} from 'react-redux';
 import {updatePath} from 'redux-simple-router';
 import {getFile} from '../../actions/files';
 import nodeify from 'nodeify';
-
+import '../../assets/css/video.css';
 
 import urlDropIcon from 'file!../../assets/img/dropicon.png'
+import ReactPlayer from 'react-player'
+import Video from "react-h5-video";
 
 @connect(state => {
-  console.log(state)
   return {
     file: state.files.data
 }}, {
@@ -29,10 +30,16 @@ export default class File extends React.Component {
   }
 
   render() {
-    console.log(this.props.file)
     return (
       <div className="file">
+
+          {(this.props.file.type == "video") &&
+          <Video sources={[this.props.file.url]} poster="./video/poster.png" >
+
+          </Video>}
+          {(this.props.file.type != "video") &&
 			   <img src={this.props.file.url} alt="*" />
+       }
       </div>
     );
   }
@@ -52,7 +59,6 @@ export default class File extends React.Component {
 }
 
 File.onEnter = store => (nextState, replaceState, callback) => {
-  console.log('onEnterFiles')
   const {id} = nextState.params;
 
   nodeify(store.dispatch(getFile(id)), callback);

@@ -14,7 +14,6 @@ export const getUser = id => {
 
 export const login = (email, password) => {
   return (dispatch, getState) => {
-    console.log(email)
     return dispatch({
       types: [ActionTypes.LOGIN, ActionTypes.LOGIN_SUCCESS, ActionTypes.LOGIN_FAILED],
       promise: (client) => client.fetch('/login', {method: 'post', body: JSON.stringify({email: email, password: password}), withCredentials: 'include', headers: {

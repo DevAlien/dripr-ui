@@ -9,15 +9,11 @@ import Root from './components/Root.prod';
 import apiClient from './apiClient';
 
 export default function createHtmlResponse({webpackStats, request}, callback) {
-
-  console.log('udheuhdeuh')
   const cookies = cookie.parse(request.headers.cookie || '');
-  console.log(cookies)
-  console.log(apiClient)
   const initialState = {
     app: {
       status: 200,
-      title: 'Redux example',
+      title: 'Dripr',
       fetchForServerRendering: true,
       authInfo: cookies.driprauth,
       loggedIn: cookies.driprauth ? true : false

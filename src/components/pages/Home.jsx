@@ -13,8 +13,6 @@ import urlDropIcon from 'file!../../assets/img/dropicon.png'
 //   updatePath
 // })
 @connect(state => {
-  console.log('stateeeee')
-  console.log(state)
   return {files: state.files};
 }, (dispatch) => ({dispatch, updatePath}))
 export default class Home extends React.Component {
@@ -24,7 +22,6 @@ export default class Home extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    console.log(context)
     this.state = {
       inputValue: ''
     };

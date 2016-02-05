@@ -16,7 +16,6 @@ export default class App extends React.Component {
 }
 
 App.onEnter = store => (nextState, replaceState, callback) => {
-  console.log('onEnter')
   const {id} = nextState.params;
   const {app} = store.getState();
   if(!app.user && app.authInfo) {

@@ -36,8 +36,6 @@ export default handleActions({
       }
   },
   [ActionTypes.LOGIN_SUCCESS]: (state, action) => {
-    console.log('ads')
-    console.log(action.result.accessToken)
     writeCookie('driprauth', action.result.accessToken, 900);
     return {
     ...state,
@@ -53,7 +51,6 @@ export default handleActions({
 
   }},
   [ActionTypes.LOGIN_FAILED]: state => {
-    console.log('ads')
     return {
     ...state,
     loading: false,
@@ -67,10 +64,6 @@ export default handleActions({
       }
   },
   [ActionTypes.GETUSER_SUCCESS]: (state, action) => {
-    console.log('ads')
-    console.log(action.result)
-    //writeCookie('driprauth', action.result.accessToken, 900);
-
     return {
     ...state,
     loading: false,
@@ -83,7 +76,6 @@ export default handleActions({
 
   }},
   [ActionTypes.GETUSER_FAILED]: state => {
-    console.log('ads')
     return {
     ...state,
     loading: false,
