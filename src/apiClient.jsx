@@ -32,9 +32,9 @@ export default function apiClient(token) {
         data.append('file', file)
       })
       let options = {method: 'post', body: data};
-      let url = '/files/anon';
+      let url = '/upload/anon';
       if(this.token) {
-        url = '/files'
+        url = '/upload'
         options.headers = {Authorization: 'Bearer ' + this.token};
       }
       return fetch(BASE + url, options);
