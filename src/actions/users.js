@@ -1,13 +1,13 @@
 import {ActionTypes} from '../constants';
-import {github, filterError, parseJSON} from '../api';
 
-export const getUser = id => {
+export const loginFacebook = (data) => {
   return (dispatch, getState) => {
     return dispatch({
-      type: ActionTypes.GET_USER,
-      payload: github('users/' + id)
-        .then(filterError)
-        .then(parseJSON)
+      types: [ActionTypes.LOGIN, ActionTypes.LOGIN_SUCCESS, ActionTypes.LOGIN_FAILED],
+      promise: (client) => client.fetch('/login-facebook', {method: 'post', body: JSON.stringify(data), withCredentials: 'include', headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }})
     });
   };
 };

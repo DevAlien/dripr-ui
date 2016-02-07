@@ -3,7 +3,6 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import List from './components/pages/List';
 import File from './components/pages/File';
-import Profile from './components/pages/Profile';
 import NotFound from './components/pages/NotFound';
 
 export default function getRoutes(store) {
@@ -33,11 +32,6 @@ export default function getRoutes(store) {
         name: 'dhd',
         component: File,
         onEnter: File.onEnter(store)
-      },
-      {
-        path: '/users/:id',
-        component: Profile,
-        onEnter: Profile.onEnter(store)
       },
       {
         path: '*',

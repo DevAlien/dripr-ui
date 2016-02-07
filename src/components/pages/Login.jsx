@@ -1,83 +1,59 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {updatePath} from 'redux-simple-router';
-import {login} from '../../actions/users';
+import {loginFacebook} from '../../actions/users';
 import nodeify from 'nodeify';
-import urlDropIcon from 'file!../../assets/img/dropicon.png'
+
 import FacebookLogin from 'react-facebook-login';
+import LoginForm from '../components/login/login';
+import SignupForm from '../components/login/signup';
+import config from '../../../config';
 
-@connect(null, (dispatch) => ({dispatch, updatePath}))
+@connect(null, (dispatch) => ({dispatch}))
 export default class Login extends React.Component {
-  static propTypes = {
-    //updatePath: PropTypes.func.isRequired
-  }
-  responseFacebook(a) {
-    console.log(a);
-  }
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      inputEmail: '',
-      inputPassword: ''
-    };
-  }
+    static propTypes = {
+        dispatch: PropTypes.func.isRequired
+    }
+    responseFacebook(data) {
+        nodeify(this.props.dispatch(loginFacebook(data)), (err, result) => {
+            if (result && result.type === 'LOGIN_SUCCESS') {
+                window.location = "/";
+            }
+            // MANAGE ERRORS
+        });
 
-  render() {
-    return (
+    }
+    constructor(props, context) {
+        super(props, context);
+        this.state = {
+            selected: 'login'
+        };
+    }
 
-      <div className="site__container">
-      <FacebookLogin
-    appId="103491386705646"
-    autoLoad={true}
-    callback={this.responseFacebook} />
-  <div className="grid__container">
+    render() {
+        return (
+            <div>
+                <div className="login-box">
+                    <div className="lb-header">
+                        <a href="#" className={this.state.selected === 'login' && 'active'} id="login-box-link" onClick={this.loginClicked}>Login</a>
+                        <a href="#" className={this.state.selected === 'signup' && 'active'} id="signup-box-link" onClick={this.signupClicked}>Sign Up</a>
+                    </div>
+                    <div className="social-login">
+                        <FacebookLogin appId={config.facebookToken} autoLoad={false} callback={this.responseFacebook.bind(this)} scope="public_profile, email" fields="email,name" size="small"/>
+                    </div>
+                    {this.state.selected === 'login' && <LoginForm/>}
+                    {this.state.selected === 'signup' && <SignupForm/>}
+                </div>
+            </div>
+        );
+    }
 
-    <form onSubmit={this.handleSubmit} className="form form--login">
+    loginClicked = e => {
+        e.preventDefault();
+        this.setState({selected: 'login'})
+    }
 
-      <div className="form__field">
-        <label className="fontawesome-user" for="login__username"><span className="hidden">Email</span></label>
-        <input id="login__username" type="text" className="form__input" placeholder="Email" value={this.state.inputEmail}
-        onChange={this.handleEmailChange} required />
-      </div>
-
-      <div className="form__field">
-        <label className="fontawesome-lock" for="login__password"><span className="hidden">Password</span></label>
-        <input id="login__password" type="password" className="form__input" placeholder="Password" value={this.state.inputPassword}
-        onChange={this.handlePasswordChange} required />
-      </div>
-
-      <div className="form__field">
-        <input type="submit" value="Sign In" />
-      </div>
-
-    </form>
-
-    <p className="text--center">Not a member? <a href="#">Sign up now</a> <span className="fontawesome-arrow-right"></span></p>
-
-  </div>
-
-</div>
-    );
-  }
-
-  handleEmailChange = e => {
-    this.setState({
-      inputEmail: e.target.value
-    });
-  }
-
-  handlePasswordChange = e => {
-    this.setState({
-      inputPassword: e.target.value
-    });
-  }
-
-  handleSubmit = e => {
-    //const {updatePath} = this.props;
-    e.preventDefault();
-    nodeify(this.props.dispatch(login(this.state.inputEmail, this.state.inputPassword)), () => {
-      // this.props.dispatch(updatePath('/'));
-      window.location = "/";
-    });
-  }
+    signupClicked = e => {
+        e.preventDefault();
+        this.setState({selected: 'signup'})
+    }
 }

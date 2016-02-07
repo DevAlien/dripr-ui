@@ -7,8 +7,7 @@ import '../../assets/css/fontello-embedded.css'
 import urlDropIcon from 'file!../../assets/img/dropicon.png'
 import nodeify from 'nodeify';
 import moment from 'moment';
-import videoImage from 'file!../../assets/img/Video.jpg'
-
+import File from '../components/list/file'
 @connect(state => {
     return {
       data: state.data.data
@@ -34,22 +33,7 @@ export default class List extends React.Component {
         this.props.data.forEach((data) => {
           var idDate = moment(data.createdAt).format("YMM")
           if(!el[idDate]) { el[idDate] = []}
-          let image = data.thumbnail || data.url;
-          if(data.type !== 'image')
-            image = videoImage;
-          el[idDate].push(<div key={data.id} className="cont">
-              <Link to={"/file/" + data.hash}>
-                  <div className="img" style={{
-                  "backgroundImage": "url('" + (image) + "')"
-                  }}></div>
-              </Link>
-              <div className="listDetail">
-                <div><i className="icon-time"/> {moment(data.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
-                <div><i className="icon-doc"/> {this.capitalizeFirstLetter(data.type)}</div>
-                <div><i className="icon-click"/> {data.views ? data.views : "0"} Views</div>
-                <div><i className="icon-comment"/> 2 Comments</div>
-              </div>
-          </div>);
+          el[idDate].push(<File data={data} />);
         })
         for (var key in el) {
           if (el.hasOwnProperty(key)) {
@@ -65,22 +49,6 @@ export default class List extends React.Component {
                 {elements.reverse()}
             </div>
         );
-    }
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    handleInputChange = e => {
-        this.setState({inputValue: e.target.value});
-    }
-
-    handleSubmit = e => {
-        const {
-            updatePath
-        } = this.props;
-
-        e.preventDefault();
-        updatePath('/users/' + this.state.inputValue);
     }
 }
 

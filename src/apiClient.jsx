@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
-
-const BASE = __CLIENT__.apiURL || 'http://localhost:8101';
+import config from '../config';
+const BASE = config.apiUrl || 'http://localhost:8101';
 
 export default function apiClient(token) {
   return {
@@ -15,16 +15,29 @@ export default function apiClient(token) {
       return fetch(BASE + url, options);
     },
 
+    postCode: function(text, language) {
+
+      let options = {method: 'post', body: JSON.stringify({text: text, language: language}), headers: {"content-type": "application/json"}};
+      let url = '/upload/code/anon';
+      if(this.token) {
+        url = '/upload/code';
+        options.Authorization = 'Bearer ' + this.token;
+      }
+      return fetch(BASE + url, options);
+    },
+
     postFile: function(files) {
       let data = new FormData();
       files.forEach(file => {
         data.append('file', file)
       })
       let options = {method: 'post', body: data};
+      let url = '/files/anon';
       if(this.token) {
+        url = '/files'
         options.headers = {Authorization: 'Bearer ' + this.token};
       }
-      return fetch(BASE + '/files', options);
+      return fetch(BASE + url, options);
     }
   }
 }

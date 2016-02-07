@@ -4,10 +4,12 @@ import {updatePath} from 'redux-simple-router';
 import {getFile} from '../../actions/files';
 import nodeify from 'nodeify';
 import '../../assets/css/video.css';
-
+import '../../assets/css/tomorrow-night.css';
 import urlDropIcon from 'file!../../assets/img/dropicon.png'
 import ReactPlayer from 'react-player'
 import Video from "react-h5-video";
+import Highlight from 'react-highlight';
+import ReactRedirect from 'react-redirect';
 
 @connect(state => {
   return {
@@ -23,38 +25,19 @@ export default class File extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      inputValue: ''
-    };
   }
 
   render() {
+    if(!this.props.file)
+      return(<h1>Error</h1>);
     return (
       <div className="file">
-
-          {(this.props.file.type == "video") &&
-          <Video sources={[this.props.file.url]} poster="./video/poster.png" >
-
-          </Video>}
-          {(this.props.file.type != "video") &&
-			   <img src={this.props.file.url} alt="*" />
-       }
+          {(this.props.file.type === 'url') && <ReactRedirect location={this.props.file.text}><div>Redirecting...</div></ReactRedirect>}
+          {(this.props.file.type === "video") && <Video sources={[this.props.file.url]} poster="./video/poster.png" ></Video>}
+          {(this.props.file.type === 'code') && <Highlight style={{"width": "100px"}}className={(this.props.file.language).toLowerCase()}>{this.props.file.text}</Highlight>}
+          {(this.props.file.type === "image") && <img src={this.props.file.url} alt="*" />}
       </div>
     );
-  }
-
-  handleInputChange = e => {
-    this.setState({
-      inputValue: e.target.value
-    });
-  }
-
-  handleSubmit = e => {
-    const {updatePath} = this.props;
-
-    e.preventDefault();
-    updatePath('/users/' + this.state.inputValue);
   }
 }
 
