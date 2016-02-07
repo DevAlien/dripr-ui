@@ -54,7 +54,7 @@ export default class Home extends React.Component {
                         </div>
                     : <div>
                         <div className="left-box" onClick={this.onOpenClick.bind(this)}>
-                            <div className="inner-box"><img src="https://dripr.io/ass/dropHereIcon.png"/>
+                            <div className="inner-box"><img src={urlDropIcon}/>
                                 <p className="home-box-text">Drop a file here to upload or click</p>
                             </div>
                         </div>
@@ -97,8 +97,6 @@ export default class Home extends React.Component {
     }
 
     clickSubmit = e => {
-        console.log(this.refs.code.value)
-        console.log(this.refs.text.value)
         nodeify(this.props.dispatch(postCode(this.refs.text.value, this.refs.code.value)), (err, value) => {
             if (err)
                 return console.log(err);
