@@ -1,5 +1,5 @@
 require('babel-core/polyfill');
-
+import ga from 'ga-react-router'
 import React from 'react';
 import {render} from 'react-dom';
 import configureStore from './store/configureStore';
@@ -15,7 +15,9 @@ import apiClient from './apiClient';
 const store = configureStore(window.$STATE, apiClient(window.$STATE.app.authInfo));
 const history = createHistory();
 const routes = getRoutes(store);
-
+history.listen(location => {
+  ga('send', location);
+});
 
 store.dispatch({type: ActionTypes.REHYDRATE});
 // store.dispatch({type: ActionTypes.ASD, "jduahda": "Ijduhe"});

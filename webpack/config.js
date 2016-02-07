@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import merge from 'lodash/object/merge';
 import fs from 'graceful-fs';
+import config from '../config';
 
 const commonConfig = {
   resolve: {
@@ -18,7 +19,10 @@ const commonConfig = {
   plugins: [
     new webpack.EnvironmentPlugin([
       'NODE_ENV'
-    ])
+    ]),
+    new webpack.DefinePlugin({
+      GA_TRACKING_CODE: JSON.stringify('UA-63854870-1')
+    })
   ],
   progress: true
 };

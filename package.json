@@ -21,6 +21,7 @@
     "csurf": "^1.8.3",
     "express": "^4.13.3",
     "filesize": "^3.1.4",
+    "ga-react-router": "^2.0.0",
     "graceful-fs": "^4.1.2",
     "highlight.js": "^8.9.1",
     "history": "^1.12.6",
