@@ -32,6 +32,16 @@ export default class File extends React.Component {
       return(<h1>Error</h1>);
     return (
       <div className="file">
+          {(this.props.file.type === 'text') && <article className="paper">
+  <div className="paper_in">{this.props.file.text.split("\n").map(function(item) {
+  return (
+    <span>
+      {item}
+      <br/>
+    </span>
+  )
+})}</div>
+</article>}
           {(this.props.file.type === 'url') && <ReactRedirect location={this.props.file.text}><div>Redirecting...</div></ReactRedirect>}
           {(this.props.file.type === "video") && <Video sources={[this.props.file.url]} poster="./video/poster.png" ></Video>}
           {(this.props.file.type === 'code') && <Highlight style={{"width": "100px"}}className={(this.props.file.language).toLowerCase()}>{this.props.file.text}</Highlight>}

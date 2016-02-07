@@ -67,7 +67,7 @@ export default class Home extends React.Component {
                                 }}>
                                     <div className="u-form-group right homein">
                                         <select ref="code">
-                                            <option>No Code</option>
+                                            <option>Text</option>
                                             <option>HTML</option>
                                             <option>Javascript</option>
                                             <option>Java</option>

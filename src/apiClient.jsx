@@ -21,7 +21,7 @@ export default function apiClient(token) {
       let url = '/upload/code/anon';
       if(this.token) {
         url = '/upload/code';
-        options.Authorization = 'Bearer ' + this.token;
+        options.headers.Authorization = 'Bearer ' + this.token;
       }
       return fetch(BASE + url, options);
     },

@@ -26,6 +26,8 @@ export default class Login extends React.Component {
         return 'fa-code img';
       case 'video':
         return 'fa-video-camera img';
+      case 'text':
+        return 'fa-pencil-square-o img';
       default:
         return 'img'
     }
