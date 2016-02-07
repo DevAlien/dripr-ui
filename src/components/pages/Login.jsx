@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {loginFacebook} from '../../actions/users';
 import nodeify from 'nodeify';
 
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login2';
 import LoginForm from '../components/login/login';
 import SignupForm from '../components/login/signup';
 import config from '../../../config';
