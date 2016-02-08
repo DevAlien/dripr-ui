@@ -16,7 +16,8 @@ const store = configureStore(window.$STATE, apiClient(window.$STATE.app.authInfo
 const history = createHistory();
 const routes = getRoutes(store);
 history.listen(location => {
-  ga('send', location);
+  ga('set', 'page', location.pathname)
+  ga('send', 'pageview');
 });
 
 store.dispatch({type: ActionTypes.REHYDRATE});
