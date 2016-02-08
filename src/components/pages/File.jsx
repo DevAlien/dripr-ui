@@ -34,7 +34,7 @@ export default class File extends React.Component {
     let viewer;
     switch(this.props.file.type) {
       case 'text':
-        viewer = <ViewerText data={this.props.file} />;
+        viewer = this.props.file.text ? <ViewerText data={this.props.file} /> : <ViewerDefault data={this.props.file} />;
         break;
       case 'url':
         viewer = <ViewerUrl data={this.props.file} />;
