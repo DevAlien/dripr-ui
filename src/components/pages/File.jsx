@@ -3,13 +3,13 @@ import {connect} from 'react-redux';
 import {updatePath} from 'redux-simple-router';
 import {getFile} from '../../actions/files';
 import nodeify from 'nodeify';
-import '../../assets/css/video.css';
-import '../../assets/css/tomorrow-night.css';
-import urlDropIcon from 'file!../../assets/img/dropicon.png'
-import ReactPlayer from 'react-player'
-import Video from "react-h5-video";
-import Highlight from 'react-highlight';
-import ReactRedirect from 'react-redirect';
+
+import ViewerText from '../components/viewers/Text'
+import ViewerUrl from '../components/viewers/Url'
+import ViewerVideo from '../components/viewers/Video'
+import ViewerCode from '../components/viewers/Code'
+import ViewerImage from '../components/viewers/Image'
+import ViewerDefault from '../components/viewers/Default'
 
 @connect(state => {
   return {
@@ -30,22 +30,32 @@ export default class File extends React.Component {
   render() {
     if(!this.props.file)
       return(<h1>Error</h1>);
+
+    let viewer;
+    switch(this.props.file.type) {
+      case 'text':
+        viewer = <ViewerText data={this.props.file} />;
+        break;
+      case 'url':
+        viewer = <ViewerUrl data={this.props.file} />;
+        break;
+      case 'video':
+        viewer = <ViewerVideo data={this.props.file} />;
+        break;
+      case 'code':
+        viewer = <ViewerCode data={this.props.file} />;
+        break;
+      case 'image':
+        viewer = <ViewerImage data={this.props.file} />;
+        break;
+      default:
+        viewer = <ViewerDefault data={this.props.file} />;
+        break;
+    }
+
     return (
       <div className="file">
-          {(this.props.file.type === 'text') && <article className="paper">
-  <div className="paper_in">{this.props.file.text.split("\n").map(function(item) {
-  return (
-    <span>
-      {item}
-      <br/>
-    </span>
-  )
-})}</div>
-</article>}
-          {(this.props.file.type === 'url') && <ReactRedirect location={this.props.file.text}><div>Redirecting...</div></ReactRedirect>}
-          {(this.props.file.type === "video") && <Video sources={[this.props.file.url]} poster="./video/poster.png" ></Video>}
-          {(this.props.file.type === 'code') && <Highlight style={{"width": "100px"}}className={(this.props.file.language).toLowerCase()}>{this.props.file.text}</Highlight>}
-          {(this.props.file.type === "image") && <img src={this.props.file.url} alt="*" />}
+        {viewer}
       </div>
     );
   }
