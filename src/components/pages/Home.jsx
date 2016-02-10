@@ -41,15 +41,13 @@ export default class Home extends React.Component {
                     ? <div style={{
                             textAlign: "center"
                         }}>
-                            <h2>Uploading
-                                {this.state.files.length}
-                                file...</h2>
+                            <h2>Uploading {this.state.files.length} file...</h2>
                             <div>{this.state.files.map((file) => {
                                     return file.type.startsWith('image')
                                         ? <img style={{
                                                 width: "20%"
                                             }} src={file.preview}/>
-                                        : <p>djede</p>
+                                        : <p>No preview</p>
                                 })}</div>
                         </div>
                     : <div>
