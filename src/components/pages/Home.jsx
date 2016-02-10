@@ -6,22 +6,19 @@ import nodeify from 'nodeify';
 import {ActionTypes} from '../../constants';
 import Dropzone from 'react-dropzone';
 import urlDropIcon from 'file!../../assets/img/dropicon.png'
+import Loader from '../components/home/loader';
 
 @connect(state => {
     return {files: state.files};
 }, (dispatch) => ({dispatch, updatePath}))
-
 export default class Home extends React.Component {
     static propTypes = {
-        //files: PropTypes.object.isRequired
+        files: PropTypes.object
     }
 
     constructor(props, context) {
         super(props, context);
-        this.state = {
-            inputValue: '',
-            files: []
-        };
+        this.state = {files: []};
         this.onDrop = this.onDrop.bind(this);
     }
     componentDidMount() {}
@@ -30,56 +27,49 @@ export default class Home extends React.Component {
         this.refs.dropzone.open();
     }
     render() {
+        let content;
         var sty = {
             marginTop: "200px"
         };
-        if (this.state.files.length > 0)
-            sty.height = '100%';
-        return (
-            <Dropzone onDrop={this.onDrop.bind(this)} ref="dropzone" className="home-box" disableClick={true} style={sty} multiple={false}>
-                {this.state.files.length > 0
-                    ? <div style={{
-                            textAlign: "center"
-                        }}>
-                            <h2>Uploading {this.state.files.length} file...</h2>
-                            <div>{this.state.files.map((file) => {
-                                    return file.type.startsWith('image')
-                                        ? <img style={{
-                                                width: "20%"
-                                            }} src={file.preview}/>
-                                        : <p>No preview</p>
-                                })}</div>
-                        </div>
-                    : <div>
-                        <div className="left-box" onClick={this.onOpenClick.bind(this)}>
-                            <div className="inner-box"><img src={urlDropIcon}/>
-                                <p className="home-box-text">Drop a file here to upload or click</p>
-                            </div>
-                        </div>
-                        <div className="right-box">
-                            <div className="right-inner">
-                                <p className="home-box-text">Paste code or an URL</p>
-                                <textarea ref="text" className="text-home"></textarea>
-                                <div style={{
-                                    "marginTop": "15px"
-                                }}>
-                                    <div className="u-form-group right homein">
-                                        <select ref="code">
-                                            <option>Text</option>
-                                            <option>HTML</option>
-                                            <option>Javascript</option>
-                                            <option>Java</option>
-                                            <option>XML</option>
-                                        </select>
-                                    </div>
-                                    <div className="u-form-group right homein">
-                                        <button onClick={this.clickSubmit.bind(this)}>Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>}
 
+        if(this.props.files && this.props.files.loading === true) {
+          content = <Loader data={this.state.files} />
+        } else {
+          content = (<div>
+                  <div className="left-box" onClick={this.onOpenClick.bind(this)}>
+                      <div className="inner-box"><img src={urlDropIcon}/>
+                          <p className="home-box-text">Drop a file here to upload or click</p>
+                      </div>
+                  </div>
+                  <div className="right-box">
+                      <div className="right-inner">
+                          <p className="home-box-text">Paste code or an URL</p>
+                          <textarea ref="text" className="text-home"></textarea>
+                          <div style={{
+                              "marginTop": "15px"
+                          }}>
+                              <div className="u-form-group right homein">
+                                  <select ref="code">
+                                      <option>Text</option>
+                                      <option>HTML</option>
+                                      <option>Javascript</option>
+                                      <option>Java</option>
+                                      <option>XML</option>
+                                  </select>
+                              </div>
+                              <div className="u-form-group right homein">
+                                  <button onClick={this.clickSubmit.bind(this)}>Submit</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          )
+        }
+        return (
+
+            <Dropzone onDrop={this.onDrop.bind(this)} ref="dropzone" className="home-box" disableClick={true} style={sty} multiple={false}>
+            {content}
             </Dropzone>
         );
     }
