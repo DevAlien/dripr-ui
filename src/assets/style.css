@@ -1174,3 +1174,13 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
   95% { left: 100px; top: -20px; width: 20px; height: 20px;}
   100% { left: 100px; top:0; }
 }
+
+.dl-link {
+  display: inline;
+  margin: 15px;
+}
+
+.kep-login-facebook-small {
+    padding: 5px!important;
+    font-size: 12px!important;
+}

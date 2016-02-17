@@ -4,7 +4,7 @@ import Login from './components/pages/Login';
 import List from './components/pages/List';
 import File from './components/pages/File';
 import NotFound from './components/pages/NotFound';
-
+import Downloads from './components/pages/Downloads'
 export default function getRoutes(store) {
   return {
     component: App,
@@ -21,6 +21,10 @@ export default function getRoutes(store) {
       {
         path: '/login',
         component: Login
+      },
+      {
+        path: '/downloads',
+        component: Downloads
       },
       {
         path: '/list',
