@@ -18,7 +18,7 @@ export default class Home extends React.Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {files: []};
+        this.state = {files: [], isDrag: false};
         this.onDrop = this.onDrop.bind(this);
     }
     componentDidMount() {}
@@ -34,6 +34,8 @@ export default class Home extends React.Component {
 
         if(this.props.files && this.props.files.loading === true) {
           content = <Loader data={this.state.files} />
+        } else if(this.state.isDrag) {
+          content = <div style={{ textAlign: "center" }}>Drop file to upload</div>
         } else {
           content = (<div>
                   <div className="left-box" onClick={this.onOpenClick.bind(this)}>
@@ -68,10 +70,25 @@ export default class Home extends React.Component {
         }
         return (
 
-            <Dropzone onDrop={this.onDrop.bind(this)} ref="dropzone" className="home-box" disableClick={true} style={sty} multiple={false}>
+            <Dropzone onDrop={this.onDrop.bind(this)} ref="dropzone" className="home-box" onDragEnter={this.onDragEnter.bind(this)} onDragOver={this.onDragOver.bind(this)} onDragLeave={this.onDragLeave.bind(this)} activeClassName="ondrop" disableClick={true} style={sty} multiple={false}>
             {content}
             </Dropzone>
         );
+    }
+
+    onDragEnter(files) {
+        if(!this.state.isDrag)
+          this.setState({isDrag: true});
+    }
+
+    onDragLeave(files) {
+      if(this.state.isDrag)
+        this.setState({isDrag: false});
+    }
+
+    onDragOver(files) {
+      if(this.state.isDrag)
+        this.setState({isDrag: false});
     }
 
     onDrop(files) {
