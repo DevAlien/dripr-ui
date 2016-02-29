@@ -13,7 +13,8 @@ export default class App extends React.Component {
   title="Home"
   titleTemplate="%s | Dripr.io"
   meta={[
-      {"name": "description", "content": "Dripr.io upload files, videos, code and take screenshots with the desktop app"}
+      {"name": "description", "content": "Dripr.io upload files, videos, code and take screenshots with the desktop app"},
+      {property: "fb:app_id", content: "103491386705646"}
   ]}
 />
         <Header />
