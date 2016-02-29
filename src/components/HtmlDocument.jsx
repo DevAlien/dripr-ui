@@ -1,6 +1,7 @@
 import React from 'react';
 import serialize from 'serialize-javascript';
 import {ActionTypes} from '../constants';
+import Helmet from 'react-helmet';
 
 export default class HtmlDocument extends React.Component {
   static propTypes = {
@@ -10,6 +11,7 @@ export default class HtmlDocument extends React.Component {
   }
 
   render() {
+    let head = Helmet.rewind();
     const {content, store, webpackStats} = this.props;
     const {app} = store.getState();
 
@@ -35,6 +37,9 @@ export default class HtmlDocument extends React.Component {
           <meta name="google-site-verification" content="x0BVFv1kzbxAKxKNFc2uFscZw4HkTcwfxoUMsQISOAk" />
           <meta httpEquiv='X-UA-Compatible' content='IE=edge'/>
           <link href='//fonts.googleapis.com/css?family=Roboto:400,300italic,300' rel='stylesheet' type='text/css' />
+          {head.title.toComponent()}
+          {head.meta.toComponent()}
+          {head.link.toComponent()}
           {styles.map((href, key) => <link rel='stylesheet' type='text/css' href={href} key={key}/>)}
         </head>
         <body>

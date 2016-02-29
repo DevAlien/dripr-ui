@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {updatePath} from 'redux-simple-router';
 import {getFile} from '../../actions/files';
 import nodeify from 'nodeify';
+import Helmet from 'react-helmet';
 
 import ViewerText from '../components/viewers/Text'
 import ViewerUrl from '../components/viewers/Url'
@@ -10,6 +11,7 @@ import ViewerVideo from '../components/viewers/Video'
 import ViewerCode from '../components/viewers/Code'
 import ViewerImage from '../components/viewers/Image'
 import ViewerDefault from '../components/viewers/Default'
+import ViewerPdf from '../components/viewers/Pdf'
 
 @connect(state => {
   return {
@@ -48,6 +50,9 @@ export default class File extends React.Component {
       case 'image':
         viewer = <ViewerImage data={this.props.file} />;
         break;
+      case 'pdfa': //do not want to activate it right now
+        viewer = <ViewerPdf data={this.props.file} />;
+        break;
       default:
         viewer = <ViewerDefault data={this.props.file} />;
         break;
@@ -55,9 +60,38 @@ export default class File extends React.Component {
 
     return (
       <div className="file">
+      <Helmet
+  title="Home"
+  titleTemplate="%s | Dripr.io"
+  meta={this.getMetaTags(this.props.file)}
+/>
         {viewer}
       </div>
     );
+  }
+
+  getMetaTags(file) {
+    let metas = [
+        {"itemprop": "name", "content": "Dripr.io"},
+        {"itemprop": "description", "content": "Dripr.io upload files, videos, code and take screenshots with the desktop app"},
+        {"name": "twitter:card", "content": "Photo"},
+        {"name": "twitter:site", "content": "@driprio"},
+        {"name": "twitter:title", "content": "Dripr.io"},
+        {"name": "twitter:description", "content": "Dripr.io upload files, videos, code and take screenshots with the desktop app"},
+        {"name": "twitter:creator", "content": "@driprio"},
+        {"property": "og:title", "content": "Dripr.io"},
+        {"property": "og:type", "content": "website"},
+        {"property": "og:url", "content": "https://dripr.io/file/" + file.hash},
+        {"property": "og:description", "content": "Dripr.io upload files, videos, code and take screenshots with the desktop app"},
+        {"property": "og:site_name", "content": "Dripr.io"},
+    ];
+    if(file.thumbnail) {
+      metas.push({"itemprop": "image", "content": file.thumbnail});
+      metas.push({"name": "twitter:image:src", "content": file.thumbnail})
+      metas.push({"property": "og:image", "content": file.thumbnail})
+    }
+
+    return metas;
   }
 }
 
