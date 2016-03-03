@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import '../../../assets/css/tomorrow-night.css';
-//import Highlight from 'react-highlight';
+import Highlight from 'react-highlight';
 
 export default class ViewerCode extends React.Component {
     static propTypes = {
