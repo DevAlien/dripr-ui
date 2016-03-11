@@ -8,12 +8,16 @@ import configureStore from './store/configureStore.prod';
 import Root from './components/Root.prod';
 import apiClient from './apiClient';
 
+/**
+ * Entry point for app
+ */
+
 export default function createHtmlResponse({webpackStats, request}, callback) {
   const cookies = cookie.parse(request.headers.cookie || '');
   const initialState = {
     app: {
       status: 200,
-      title: 'Dripr',
+      title: "Vouchers's Provider",
       fetchForServerRendering: true,
       authInfo: cookies.driprauth,
       loggedIn: cookies.driprauth ? true : false
