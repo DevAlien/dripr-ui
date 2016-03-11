@@ -1,13 +1,13 @@
 import merge from 'lodash/object/merge';
 
 const env = process.env.NODE_ENV || 'development';
-let editedValues = {}
+let editedValues = {};
 
 if (env === 'development') {
   editedValues = {
-    port: 4000,
-    host: '0.0.0.0'
+    "port": 4000,
+    "host": "0.0.0.0"
   };
 }
 
-export default merge({editedValues}, require('./default.json'));
+export default merge(editedValues, require('./default.json'));
