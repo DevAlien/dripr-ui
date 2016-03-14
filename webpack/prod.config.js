@@ -33,7 +33,7 @@ export const client = merge({}, config.client, {
          __SERVER__: false,
          __DEVELOPMENT__: false,
          __DEVTOOLS__: false,
-         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+         __CONFIG__: config
        }),
     // optimize
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[hash:8].js'),
@@ -73,7 +73,7 @@ export const server = merge({}, config.server, {
          __SERVER__: true,
          __DEVELOPMENT__: false,
          __DEVTOOLS__: false,
-         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+         __CONFIG__: config 
        }),
     // optimize
     new webpack.optimize.DedupePlugin(),

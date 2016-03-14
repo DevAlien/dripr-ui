@@ -1061,7 +1061,6 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
 
 .inner-box {
   text-align: center;
-  padding-right: 40px;
   padding-top: 20px;
 }
 .right-inner {
@@ -1089,7 +1088,7 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
 
 .homein {
   width: 100px;
-  margin-left: 20px;
+  margin: 0 auto;
 }
 
 .homein button{
@@ -1103,8 +1102,6 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
 .file pre{
   text-align: left;
 }
-
-
 
 .paper {
   display: block;
@@ -1140,10 +1137,6 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
   font-size: 16px !important;
   line-height: 32px !important;
 }
-
-
-
-
 
 .loader {
   width: 100px;
