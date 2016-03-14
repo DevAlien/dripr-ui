@@ -24,7 +24,8 @@ const commonConfig = {
       GA_TRACKING_CODE: JSON.stringify('UA-63854870-1')
     })
   ],
-  progress: true
+  progress: true,
+  devtools: config.devtools ? config.devtools : false
 };
 
 export const client = merge({}, commonConfig, {

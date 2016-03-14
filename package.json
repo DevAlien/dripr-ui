@@ -1,7 +1,7 @@
 {
-  "name": "driprui",
-  "version": "0.0.0",
-  "description": "Dripr UI",
+  "name": "xl-vouchers-provider",
+  "version": "0.1.0",
+  "description": "Upload interface for voucher .csv files",
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=production webpack --stats --progress",
@@ -10,8 +10,6 @@
     "jscs": "jscs .",
     "start": "NODE_ENV=production node index"
   },
-  "author": "Goncalo Margalho <gsky89@gmail.com> (http://zespia.tw)",
-  "repository": "DevAlien/dripr-ui",
   "dependencies": {
     "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
@@ -74,5 +72,8 @@
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1"
+  },
+  "jshintConfig": {
+    "esversion": 6
   }
 }

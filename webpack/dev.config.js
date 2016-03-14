@@ -7,6 +7,9 @@ import writeStats from './utils/write-stats';
 import notifyStats from './utils/notify-stats';
 
 const babelrc = JSON.parse(fs.readFileSync(path.join(__dirname, '../.babelrc'), 'utf8'));
+if (config.client.devtools) {
+  console.log("Dev tools are ENABLED");
+}
 
 export const client = merge({}, config.client, {
   devtool: 'eval',
@@ -56,8 +59,8 @@ export const client = merge({}, config.client, {
          __CLIENT__: true,
          __SERVER__: false,
          __DEVELOPMENT__: true,
-         __DEVTOOLS__: true,
-         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+         __DEVTOOLS__: config.client.devtools, // <-------- ENABLE redux-devtools HERE
+         __CONFIG__: config
        }),
     // optimize
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
@@ -92,8 +95,8 @@ export const server = merge({}, config.server, {
          __CLIENT__: false,
          __SERVER__: true,
          __DEVELOPMENT__: true,
-         __DEVTOOLS__: true,
-         __CONFIG__: config  // <-------- ENABLE redux-devtools HERE
+         __DEVTOOLS__: config.client.devtools, // <-------- ENABLE redux-devtools HERE
+         __CONFIG__: config
        }),
     // optimize
     new webpack.optimize.DedupePlugin(),

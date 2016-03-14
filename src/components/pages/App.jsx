@@ -11,10 +11,9 @@ export default class App extends React.Component {
       <div>
       <Helmet
   title="Home"
-  titleTemplate="%s | Dripr.io"
+  titleTemplate="%s | Voucher's Provider Service | SONY Mobile"
   meta={[
-      {"name": "description", "content": "Dripr.io upload files, videos, code and take screenshots with the desktop app"},
-      {property: "fb:app_id", content: "103491386705646"}
+      {"name": "description", "content": "Voucher's Provider upload interface for .csv files"}
   ]}
 />
         <Header />

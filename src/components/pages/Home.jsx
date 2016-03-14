@@ -37,35 +37,15 @@ export default class Home extends React.Component {
         } else if(this.state.isDrag) {
           content = <div style={{ textAlign: "center" }}>Drop file to upload</div>
         } else {
-          content = (<div>
-                  <div className="left-box" onClick={this.onOpenClick.bind(this)}>
-                      <div className="inner-box"><img src={urlDropIcon}/>
-                          <p className="home-box-text">Drop a file here to upload or click</p>
-                      </div>
-                  </div>
-                  <div className="right-box">
-                      <div className="right-inner">
-                          <p className="home-box-text">Paste code or an URL</p>
-                          <textarea ref="text" className="text-home"></textarea>
-                          <div style={{
-                              "marginTop": "15px"
-                          }}>
-                              <div className="u-form-group right homein">
-                                  <select ref="code">
-                                      <option>Text</option>
-                                      <option>HTML</option>
-                                      <option>Javascript</option>
-                                      <option>Java</option>
-                                      <option>XML</option>
-                                  </select>
-                              </div>
-                              <div className="u-form-group right homein">
-                                  <button onClick={this.clickSubmit.bind(this)}>Submit</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+          content = (
+            <div onClick={this.onOpenClick.bind(this)}>
+              <div className="inner-box"><img src={urlDropIcon}/>
+                <p className="home-box-text">Drop a file here to upload or click</p>
+                <div className="u-form-group homein">
+                    <button onClick={this.clickSubmit.bind(this)}>Submit</button>
+                </div>
               </div>
+            </div>
           )
         }
         return (
