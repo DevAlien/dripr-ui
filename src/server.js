@@ -19,11 +19,11 @@ export default function createHtmlResponse({webpackStats, request}, callback) {
       status: 200,
       title: "Vouchers's Provider",
       fetchForServerRendering: true,
-      authInfo: cookies.driprauth,
-      loggedIn: cookies.driprauth ? true : false
+      authInfo: cookies.vpsauth,
+      loggedIn: cookies.vpsauth ? true : false
     }
   };
-  const store = configureStore(initialState, apiClient(cookies.driprauth));
+  const store = configureStore(initialState, apiClient(cookies.vpsauth));
 
   const routes = getRoutes(store);
 

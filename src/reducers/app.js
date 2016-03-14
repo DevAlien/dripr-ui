@@ -21,7 +21,7 @@ export default handleActions({
     fetchForServerRendering: false
   }),
   [ActionTypes.USER_LOGOUT]: state => {
-      writeCookie('driprauth', '', -2);
+      writeCookie('vpsauth', '', -2);
       return {
         ...state,
         user: false,
@@ -36,7 +36,7 @@ export default handleActions({
       }
   },
   [ActionTypes.LOGIN_SUCCESS]: (state, action) => {
-    writeCookie('driprauth', action.result.accessToken, 900);
+    writeCookie('vpsauth', action.result.accessToken, 900);
     return {
     ...state,
     loading: false,
