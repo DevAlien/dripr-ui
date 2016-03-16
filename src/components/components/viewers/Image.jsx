@@ -10,7 +10,7 @@ export default class ViewerImage extends React.Component {
     }
     render() {
         return (
-            <img src={this.props.data.url} alt="*" />
+            <img style={{maxWidth: "100%"}} src={this.props.data.url} alt="*" />
         );
     }
 

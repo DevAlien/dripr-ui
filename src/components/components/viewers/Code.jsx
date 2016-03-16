@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import '../../../assets/css/tomorrow-night.css';
-//import Highlight from 'react-highlight';
+import Highlight from 'react-highlight';
 
 export default class ViewerCode extends React.Component {
     static propTypes = {
@@ -12,7 +12,7 @@ export default class ViewerCode extends React.Component {
     }
     render() {
         return (
-            <Highlight style={{"width": "100px"}} className={(this.props.data.language).toLowerCase()}>{this.props.data.text}</Highlight>
+            <Highlight style={{"width": "100px", textAlign: 'initial'}} className={(this.props.data.language).toLowerCase()}>{this.props.data.text}</Highlight>
         );
     }
 

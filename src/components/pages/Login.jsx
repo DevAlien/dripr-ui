@@ -7,6 +7,7 @@ import FacebookLogin from 'react-facebook-login2';
 import LoginForm from '../components/login/login';
 import SignupForm from '../components/login/signup';
 import config from '../../../config';
+const { Container, Card, Row, Col } = require('elemental');
 
 @connect(null, (dispatch) => ({dispatch}))
 export default class Login extends React.Component {
@@ -31,29 +32,13 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div>
+            <Container maxWidth={800} className="demo-container" style={{textAlign: 'center', paddingTop: '50px'}}>
                 <div className="login-box">
-                    <div className="lb-header">
-                        <a href="#" className={this.state.selected === 'login' && 'active'} id="login-box-link" onClick={this.loginClicked}>Login</a>
-                        <a href="#" className={this.state.selected === 'signup' && 'active'} id="signup-box-link" onClick={this.signupClicked}>Sign Up</a>
-                    </div>
                     <div className="social-login">
                         <FacebookLogin appId={config.facebookToken} autoLoad={false} callback={this.responseFacebook.bind(this)} scope="public_profile, email" fields="email,name" size="small"/>
                     </div>
-                    {this.state.selected === 'login' && <LoginForm/>}
-                    {this.state.selected === 'signup' && <SignupForm/>}
                 </div>
-            </div>
+            </Container>
         );
-    }
-
-    loginClicked = e => {
-        e.preventDefault();
-        this.setState({selected: 'login'})
-    }
-
-    signupClicked = e => {
-        e.preventDefault();
-        this.setState({selected: 'signup'})
     }
 }

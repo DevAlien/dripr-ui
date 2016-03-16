@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {loginFacebook} from '../../actions/users';
 import nodeify from 'nodeify';
-
+import {Button} from 'elemental'
 import FacebookLogin from 'react-facebook-login2';
 import LoginForm from '../components/login/login';
 import SignupForm from '../components/login/signup';
@@ -29,9 +29,9 @@ export default class Downloads extends React.Component {
               <div style={{textAlign: 'center'}}><h1>Here you can download our Desktop App</h1>
               <h2>It is a menubar app, so you will have a little icon and there you can manage the app</h2>
               <span>
-                <a href={this.state.mac} target="_blank" className="pure-menu-link pure-menu-link-button dl-link">Download MacOSX</a>
-                <a href={this.state.win32} target="_blank" className="pure-menu-link pure-menu-link-button dl-link">Download Windows 32bit</a>
-                <a href={this.state.win64} target="_blank" className="pure-menu-link pure-menu-link-button dl-link">Download Windows 64bit</a>
+                <Button type="default-primary" style={{margin: "10px"}} href={this.state.mac}>Download MacOSX</Button>
+                <Button type="default-primary" style={{margin: "10px"}} href={this.state.win32}>Download Windows 32bit</Button>
+                <Button type="default-primary" style={{margin: "10px"}} href={this.state.win64}>Download Windows 64bit</Button>
               </span>
 
               </div>
