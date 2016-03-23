@@ -28,6 +28,18 @@ export default class Home extends React.Component {
                               	{ label: 'XML',    value: 'xml' },
                                 { label: 'HTML', value: 'html'}
                               ];
+        if (__CLIENT__) {
+            (function(w) {
+                var d = document,
+                    h = d.getElementsByTagName('head')[0],
+                    j = d.createElement('script'),
+                    k = d.createElement('script');
+                j.setAttribute('src', '//cdn.adsoptimal.com/advertisement/settings/25341.js');
+                k.setAttribute('src', '//cdn.adsoptimal.com/advertisement/manual.js');
+                h.appendChild(j);
+                h.appendChild(k);
+            })(window);
+        }
     }
 
     componentDidMount() {}
@@ -91,62 +103,15 @@ export default class Home extends React.Component {
           {content}
           </Card>
         </Dropzone>
+        <br />
+        <br />
+        {!this.props.isMobile && <div className="adsoptimal-slot adsMobile" style={{width: '728px', height: '90px', margin: 'auto'}}></div>}
+
       </Container>);
     }
      isValidUrl(value) {
        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( value );
      }
-
-    render3() {
-        let content;
-        var sty = {
-            marginTop: "200px"
-        };
-
-        if(this.props.files && this.props.files.loading === true) {
-          content = <Loader data={this.state.files} />
-        } else if(this.state.isDrag) {
-          content = <div style={{ textAlign: "center" }}>Drop file to upload</div>
-        } else {
-          content = (<div>
-                  <div className="left-box" onClick={this.onOpenClick.bind(this)}>
-                      <div className="inner-box"><img src={urlDropIcon}/>
-                          <p className="home-box-text">Drop a file here to upload or click</p>
-                      </div>
-                  </div>
-                  <div className="right-box">
-                      <div className="right-inner">
-                          <p className="home-box-text">Paste code or an URL</p>
-                          <textarea ref="textInput" className="text-home"></textarea>
-                          <div style={{
-                              "marginTop": "15px"
-                          }}>
-                              <div className="u-form-group right homein">
-                                  <select ref="code">
-                                      <option>Text</option>
-                                      <option>HTML</option>
-                                      <option>Javascript</option>
-                                      <option>Java</option>
-                                      <option>XML</option>
-                                  </select>
-                              </div>
-                              <div className="u-form-group right homein">
-                                  <button onClick={this.clickSubmit.bind(this)}>Submit</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          )
-        }
-
-        return (
-
-            <Dropzone onDrop={this.onDrop.bind(this)} ref="dropzone" className="home-box" onDragEnter={this.onDragEnter.bind(this)} onDragOver={this.onDragOver.bind(this)} onDragLeave={this.onDragLeave.bind(this)} activeClassName="ondrop" disableClick={true} style={sty} multiple={false}>
-            {content}
-            </Dropzone>
-        );
-    }
 
     updateSelect(option) {
 			this.setState({ textType: option });
