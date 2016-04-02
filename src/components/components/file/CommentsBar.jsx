@@ -25,13 +25,13 @@ export default class CommentsBar extends React.Component {
         }
 
 
-        if (__CLIENT__) {
+        if (__CLIENT__ && __ADSOPTIMAL__) {
             (function(w) {
                 var d = document,
                     h = d.getElementsByTagName('head')[0],
                     j = d.createElement('script'),
                     k = d.createElement('script');
-                j.setAttribute('src', '//cdn.adsoptimal.com/advertisement/settings/25341.js');
+                j.setAttribute('src', '//cdn.adsoptimal.com/advertisement/settings/__ADSOPTIMAL__.js');
                 k.setAttribute('src', '//cdn.adsoptimal.com/advertisement/manual.js');
                 h.appendChild(j);
                 h.appendChild(k);

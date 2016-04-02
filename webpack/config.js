@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import merge from 'lodash/object/merge';
 import fs from 'graceful-fs';
 import config from '../config';
-
+console.log(config)
 const commonConfig = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.json']
@@ -21,7 +21,8 @@ const commonConfig = {
       'NODE_ENV'
     ]),
     new webpack.DefinePlugin({
-      GA_TRACKING_CODE: JSON.stringify('UA-63854870-1')
+      GA_TRACKING_CODE: JSON.stringify(config.config.googleAnalytics),
+      __ADSOPTIMAL__: JSON.stringify(config.config.adsOptimal)
     })
   ],
   progress: true
