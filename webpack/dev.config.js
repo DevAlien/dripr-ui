@@ -43,6 +43,10 @@ export const client = merge({}, config.client, {
         })
       },
       {
+        test: /\.less$/,
+        loader: "style!css!less"
+      },
+      {
         test: /\.css$/,
         loader: 'style!css'
       }
@@ -82,6 +86,10 @@ export const server = merge({}, config.server, {
       },
       {
         test: /\.css$/,
+        loader: 'null'
+      },
+      {
+        test: /\.less$/,
         loader: 'null'
       }
     ])

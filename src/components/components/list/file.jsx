@@ -45,7 +45,7 @@ export default class Login extends React.Component {
             <div><i className="icon-time"/> {moment(data.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
             <div><i className="icon-doc"/> {this.capitalizeFirstLetter(data.type)}</div>
             <div><i className="icon-click"/> {data.views ? data.views : "0"} Views</div>
-            <div><i className="icon-comment"/> 0 Comments</div>
+            <div><i className="icon-comment"/> {data.comments ? data.comments + ' Comments' : '0 Comments'}</div>
           </div>
       </div>
 

@@ -12,7 +12,7 @@ export default class ViewerVideo extends React.Component {
     }
     render() {
         return (
-            <Video sources={[this.props.data.url]} poster="./video/poster.png" ></Video>
+            <Video sources={[this.props.data.url]} width="100%" poster="./video/poster.png" ></Video>
         );
     }
 

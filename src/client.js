@@ -21,7 +21,6 @@ history.listen(location => {
 });
 
 store.dispatch({type: ActionTypes.REHYDRATE});
-// store.dispatch({type: ActionTypes.ASD, "jduahda": "Ijduhe"});
 syncReduxAndRouter(history, store);
 
 render(

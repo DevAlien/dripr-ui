@@ -18,6 +18,10 @@ export const client = merge({}, config.client, {
         exclude: /node_modules/
       },
       {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract('style', 'css!less')
+      },
+      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', 'css')
       }
@@ -62,6 +66,10 @@ export const server = merge({}, config.server, {
       },
       {
         test: /\.css$/,
+        loader: 'null'
+      },
+      {
+        test: /\.less$/,
         loader: 'null'
       }
     ])

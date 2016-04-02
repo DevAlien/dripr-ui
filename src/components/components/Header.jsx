@@ -1,11 +1,15 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import urlLogo from 'file!../../assets/img/menulogo.png'
+import urlTwitterImg from 'file!../../assets/img/twitter.svg'
+import urlFacebookImg from 'file!../../assets/img/facebook.svg'
+import urlGithubImg from 'file!../../assets/img/github.svg'
 import filesize from 'filesize';
 import FacebookLogin from 'react-facebook-login2';
 import {connect} from 'react-redux';
 import {loginFacebook} from '../../actions/users';
 import nodeify from 'nodeify';
+import {Glyph} from 'elemental';
 
 import config from '../../../config';
 
@@ -25,73 +29,98 @@ export default class Header extends React.Component {
   }
     constructor (props, context) {
       super(props, context);
+
+      this.state = {
+  			mobileMenuIsVisible: false,
+  			windowHeight: this.props.app.isMobile ? 700 : 1200,
+  			windowWidth: this.props.app.isMobile ? 400: 800
+  		};
+      if(__CLIENT__)
+      this.state = {
+  			mobileMenuIsVisible: false,
+  			windowHeight: window.innerHeight,
+  			windowWidth: window.innerWidth
+  		};
+
     }
+
+    componentDidMount () {
+      if(__CLIENT__) {
+        window.addEventListener('resize', this.handleResize.bind(this));
+      }
+
+  	}
+
+  	componentWillUnmount () {
+      if(__CLIENT__)
+  		  window.removeEventListener('resize', this.handleResize.bind(this));
+  	}
+
+  	handleResize () {
+  		this.setState({
+  			windowHeight: window.innerHeight,
+  			windowWidth: window.innerWidth
+  		});
+  	}
+
+  	toggleMenu () {
+  		this.setState({
+  			mobileMenuIsVisible: !this.state.mobileMenuIsVisible
+  		});
+  	}
 
     render () {
       const state = this.props;
+      var height = (this.state.windowWidth < 768) ? this.state.windowHeight : 'auto';
+      var menuClass = this.state.mobileMenuIsVisible ? 'primary-nav-menu is-visible' : 'primary-nav-menu is-hidden';
 
+      var menu = [
+        <Link key="/downloads" className="primary-nav__item" activeClassName="active" onClick={this.toggleMenu.bind(this)} to="/downloads">
+        <span className="primary-nav__item-inner">Downloads</span>
+      </Link>]
+      if(!state.app || !state.app.user || !state.app.user.name) { //not logged in
+        menu.push(<Link key="/login" className="primary-nav__item" activeClassName="active" onClick={this.toggleMenu.bind(this)} to="/login">
+        <span className="primary-nav__item-inner">Login</span>
+      </Link>)
+      }
+      if (state.app && state.app.user && state.app.user.name) { //logged in
+        menu.push(<Link key="/list" className="primary-nav__item" activeClassName="active" onClick={this.toggleMenu.bind(this)} to="/list">
+        <span className="primary-nav__item-inner">{state.app.user.name}</span>
+      </Link>);
+      menu.push(<Link key="/logout" className="primary-nav__item" activeClassName="active" onClick={this.toggleMenu.bind(this)} to="/logout">
+      <span className="primary-nav__item-inner">Logout</span>
+    </Link>)
+      }
+
+      //menu.push(<Link className="primary-nav__item"><FacebookLogin style={{padding: "0", lineHeight: "40px"}} appId={config.facebookToken} autoLoad={false} callback={this.responseFacebook.bind(this)} scope="public_profile, email" fields="email,name" size="small"/></Link>)
         return(
-            <div className="pure-menu pure-menu-horizontal pure-menu-dripr">
-                <Link to="/" className="pure-menu-heading pure-menu-link"><img src={urlLogo}/></Link>
-                {(!state.app || !state.app.user || !state.app.user.name) &&
-                    <ul className="pure-menu-list">
-                    <li className="pure-menu-item">
-                      <Link to="/downloads" className="pure-menu-link">Downloads</Link>
-                  </li>
-                  <li className="pure-menu-item">
-                    <FacebookLogin style={{padding: "5px", fontSize: "12px"}} appId={config.facebookToken} autoLoad={false} callback={this.responseFacebook.bind(this)} scope="public_profile, email" fields="email,name" size="small"/>
-                  </li>
-                      {/*<li className="pure-menu-item">
-                        <Link to="/login" className="pure-menu-link">Sign In</Link>
-                    </li>
-                    <li className="pure-menu-item">
-                        <a href="#asd" className="pure-menu-link">Create Account</a>
-                    </li>*/}
-                  </ul> }
-                    {(state.app && state.app.user && state.app.user.name) &&
-                      <ul className="pure-menu-list">
-                        <li className="pure-menu-item">
-                            <Link to="/list" className="pure-menu-link">{state.app.user.name}</Link>
-                        </li>
-                        <li className="pure-menu-item">
-                          <Link to="/downloads" className="pure-menu-link">Downloads</Link>
-                      </li>
-                        <li className="pure-menu-item">
-                            <Link to="/logout" className="pure-menu-link">Logout</Link>
-                        </li>
-                      </ul>
-                    }
+          <nav className="primary-nav">
+    				<Link to="/" className="primary-nav__brand" title="Home">
+    					<img src={urlLogo} className="primary-nav__brand-src" />
+    				</Link>
+            <button onClick={this.toggleMenu.bind(this)} className="primary-nav__item primary-nav-menu-trigger">
+    					<span className="primary-nav-menu-trigger-icon octicon octicon-navicon" />
+    					<span className="primary-nav-menu-trigger-label">{this.state.mobileMenuIsVisible ? 'Close' : 'Menu'}</span>
+    				</button>
 
-                { (state.files && state.files.data && state.files.data.url && (state.routing && state.routing.path && state.routing.path.indexOf('/file/') === 0)) ? <ul className="pure-menu-list" style={{"float": "right", "marginTop": "8px"}}>
-                    <li className="pure-menu-item">
-                        <a href={state.files.data.url} target="_blank" className="pure-menu-link pure-menu-link-button">Download</a>
-                    </li>
-                    {state.files.data.fileSize && <li className="pure-menu-item">
-                      <span className="pure-menu-link pure-menu-span">{filesize(state.files.data.fileSize)}</span>
-                    </li>}
-                    {state.files.data.imageSize && <li className="pure-menu-item">
-                        <span className="pure-menu-link pure-menu-span">{state.files.data.imageSize.width} x {state.files.data.imageSize.height}</span>
-                    </li>}
-                    <li className="pure-menu-item">
-                        <a href="https://www.facebook.com/dripr" target="_blank" className="pure-menu-link"><i className="fa fa-facebook-official"></i></a>
-                    </li>
-                    <li className="pure-menu-item">
-                        <a href="https://twitter.com/Driprio" target="_blank" className="pure-menu-link"><i className="fa fa-twitter"></i></a>
-                    </li>
-                    <li className="pure-menu-item">
-                        <a href="https://github.com/DevAlien/dripr-ui" target="_blank" className="pure-menu-link"><i className="fa fa-github"></i></a>
-                    </li>
-                </ul> : <ul className="pure-menu-list" style={{"float": "right", "marginTop": "8px"}}>
-                <li className="pure-menu-item">
-                    <a href="https://www.facebook.com/dripr" target="_blank" className="pure-menu-link"><i className="fa fa-facebook-official"></i></a>
-                </li>
-                <li className="pure-menu-item">
-                    <a href="https://twitter.com/Driprio" target="_blank" className="pure-menu-link"><i className="fa fa-twitter"></i></a>
-                </li>
-                <li className="pure-menu-item">
-                    <a href="https://github.com/DevAlien/dripr-ui" target="_blank" className="pure-menu-link"><i className="fa fa-github"></i></a>
-                </li></ul>}
+            <div className={menuClass} style={{ height }}>
+    					<div className="primary-nav-menu-inner">
+              {menu}
+    					</div>
+    				</div>
+            <div  className="primary-nav__brand" style={{float: 'right', right: 0, left: 'inherit', marginTop: '-12px'}}>
+            <a href="https://github.com/DevAlien/dripr-ui" target="_blank" title="View on GitHub" style={{float: 'right', paddingLeft: '10px'}}>
+    					<img src={urlGithubImg} className="primary-nav__brand-src" width="24"/>
+    				</a>
+            <a href="https://twitter.com/Driprio" target="_blank" title="View on Twitter"  style={{float: 'right', paddingLeft: '10px'}}>
+    					<img src={urlTwitterImg} className="primary-nav__brand-src" width="24"/>
+    				</a>
+            <a href="https://www.facebook.com/dripr" target="_blank" title="View on Facebook"  style={{float: 'right', paddingLeft: '10px'}}>
+    					<img src={urlFacebookImg} className="primary-nav__brand-src" width="24"/>
+    				</a>
+
             </div>
+            </nav>
         );
     }
 }

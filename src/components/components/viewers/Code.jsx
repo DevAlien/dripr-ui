@@ -12,7 +12,7 @@ export default class ViewerCode extends React.Component {
     }
     render() {
         return (
-            <Highlight style={{"width": "100px"}} className={(this.props.data.language).toLowerCase()}>{this.props.data.text}</Highlight>
+            <Highlight className={(this.props.data.language).toLowerCase()}>{this.props.data.text}</Highlight>
         );
     }
 

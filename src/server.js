@@ -8,6 +8,14 @@ import configureStore from './store/configureStore.prod';
 import Root from './components/Root.prod';
 import apiClient from './apiClient';
 
+function isMobile(userAgent) {
+    if (userAgent.match(/Android/i) || userAgent.match(/webOS/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPad/i) || userAgent.match(/iPod/i) || userAgent.match(/BlackBerry/i) || userAgent.match(/Windows Phone/i)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 export default function createHtmlResponse({webpackStats, request}, callback) {
   const cookies = cookie.parse(request.headers.cookie || '');
   const initialState = {
@@ -16,9 +24,12 @@ export default function createHtmlResponse({webpackStats, request}, callback) {
       title: 'Dripr',
       fetchForServerRendering: true,
       authInfo: cookies.driprauth,
-      loggedIn: cookies.driprauth ? true : false
+      loggedIn: cookies.driprauth ? true : false,
+      isMobile: isMobile(request.headers['user-agent'])
     }
   };
+  //console.log(request.headers)
+
   const store = configureStore(initialState, apiClient(cookies.driprauth));
 
   const routes = getRoutes(store);

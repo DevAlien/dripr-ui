@@ -24,6 +24,27 @@ export default handleActions({
     loaded: false
   }},
 
+  [ActionTypes.COMMENTS]: state => {
+      return {
+        ...state,
+        loadingComments: true
+      }
+  },
+  [ActionTypes.COMMENTS_SUCCESS]: (state, action) => {
+    return {
+    ...state,
+    loadingComments: false,
+    loadedComments: true,
+    comments: action.result
+  }},
+  [ActionTypes.COMMENTS_FAILED]: state => {
+
+    return {
+    ...state,
+    loadingComments: false,
+    loadedComments: false
+  }},
+
   [ActionTypes.GET_FILE]: (state, action) => {
     if (!action.payload || action.error) return state;
 

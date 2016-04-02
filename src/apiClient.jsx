@@ -26,6 +26,16 @@ export default function apiClient(token) {
       return fetch(BASE + url, options);
     },
 
+    postComment: function(id, text) {
+      let options = {method: 'post', body: JSON.stringify({text: text}), headers: {"content-type": "application/json"}};
+      let url = '/comments/' + id + '/anon';
+      if(this.token) {
+        url = '/comments/' + id;
+        options.headers.Authorization = 'Bearer ' + this.token;
+      }
+      return fetch(BASE + url, options);
+    },
+
     postFile: function(files) {
       let data = new FormData();
       files.forEach(file => {
