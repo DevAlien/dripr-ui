@@ -8,7 +8,7 @@ import configureStore from './store/configureStore.prod'
 import Root from './components/Root.prod'
 import apiClient from './apiClient'
 
-function isMobile (userAgent) {
+function isMobile(userAgent) {
   if (userAgent.match(/Android/i) || userAgent.match(/webOS/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPad/i) || userAgent.match(/iPod/i) || userAgent.match(/BlackBerry/i) || userAgent.match(/Windows Phone/i)) {
     return true
   } else {
@@ -16,7 +16,7 @@ function isMobile (userAgent) {
   }
 }
 
-export default function createHtmlResponse ({webpackStats, request}, callback) {
+export default function createHtmlResponse({webpackStats, request}, callback) {
   const cookies = cookie.parse(request.headers.cookie || '')
   const initialState = {
     app: {

@@ -2,7 +2,7 @@ import {handleActions} from 'redux-actions'
 import Immutable, {OrderedMap} from 'immutable'
 import {ActionTypes} from '../constants'
 
-function writeCookie (name, value, days) {
+function writeCookie(name, value, days) {
   var date, expires
   if (days) {
     date = new Date()
@@ -14,7 +14,7 @@ function writeCookie (name, value, days) {
   document.cookie = name + '=' + value + expires + '; path=/'
 }
 
-function readCookie (name) {
+function readCookie(name) {
   var i, c, ca, nameEQ = name + '='
   ca = document.cookie.split(';')
   for (i = 0; i < ca.length; i++) {

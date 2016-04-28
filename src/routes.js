@@ -5,7 +5,7 @@ import List from './components/pages/List'
 import File from './components/pages/File'
 import NotFound from './components/pages/NotFound'
 import Downloads from './components/pages/Downloads'
-export default function getRoutes (store) {
+export default function getRoutes(store) {
   return {
     component: App,
     childRoutes: [

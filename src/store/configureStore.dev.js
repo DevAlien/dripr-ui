@@ -2,7 +2,7 @@ import {persistState} from 'redux-devtools'
 import DevTools from '../components/DevTools'
 import composeStore from './composeStore'
 
-export default function configureStore (initialState, client) {
+export default function configureStore(initialState, client) {
   const store = composeStore(
     initialState,
     client,

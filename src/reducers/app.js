@@ -1,7 +1,7 @@
 import {handleActions} from 'redux-actions'
 import {ActionTypes} from '../constants'
 
-function writeCookie (name, value, days) {
+function writeCookie(name, value, days) {
   var date, expires
   if (days) {
     date = new Date()

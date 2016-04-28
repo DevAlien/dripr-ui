@@ -2,7 +2,7 @@ import {applyMiddleware} from 'redux'
 import promise from 'redux-promise'
 import thunk from 'redux-thunk'
 
-export default function (client) {
+export default function(client) {
   return applyMiddleware(
     clientMiddleware(client),
     thunk,
@@ -10,7 +10,7 @@ export default function (client) {
   )
 }
 
-function clientMiddleware (client) {
+function clientMiddleware(client) {
   return ({dispatch, getState}) => {
     return next => action => {
       if (typeof action === 'function') {
@@ -35,11 +35,11 @@ function clientMiddleware (client) {
   }
 }
 
-function parseJSON (res) {
+function parseJSON(res) {
   return res.json()
 }
 
-function filterError (res) {
+function filterError(res) {
   if (res.status < 200 || res.status > 300) {
     const contentType = res.headers.get('Content-Type')
 
