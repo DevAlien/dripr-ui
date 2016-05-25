@@ -26,6 +26,10 @@ There's also a desktop app where you can see your uploaded files and take screen
 
 ## Usage
 
+** Copy configuration files **
+
+Copy /config/default.json to /config/development.json. Change it with the desired values
+
 **Start the development server**
 
 The server will run on [localhost:4000](http://localhost:4000).
