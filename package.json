@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --stats --progress",
-    "dev": "cross-env NODE_ENV=development & webpack --watch --config webpack/server.js & cross-env NODE_ENV=development node index",
+    "dev": "cross-env NODE_ENV=development webpack --watch --config webpack/server.js & cross-env NODE_ENV=development node index",
     "eslint": "eslint ./src --ext .js,.jsx",
     "jscs": "jscs .",
     "start": "cross-env NODE_ENV=production node index"

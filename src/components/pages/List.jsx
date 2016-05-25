@@ -1,10 +1,8 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {updatePath} from 'redux-simple-router';
-import {Link} from 'react-router';
+import {updatePath} from 'redux-simple-router'
 import {getData} from '../../actions/data';
 import '../../assets/css/fontello-embedded.css'
-import urlDropIcon from 'file!../../assets/img/dropicon.png'
 import nodeify from 'nodeify';
 import moment from 'moment';
 import File from '../components/list/file'
