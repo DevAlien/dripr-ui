@@ -38,6 +38,15 @@ The server will run on [localhost:4000](http://localhost:4000).
 $ npm run dev
 ```
 
+or
+
+``` bash
+$ npm run devw
+```
+
+on Windows
+
+
 **Build source files**
 
 Compiles JavaScript files with JavaScript and extracts CSS files from JavaScript.

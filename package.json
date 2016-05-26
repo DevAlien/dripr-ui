@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --stats --progress",
-    "dev": "cross-env NODE_ENV=development webpack --watch --config webpack/server.js & cross-env NODE_ENV=development node index",
+    "dev": "NODE_ENV=development webpack --watch --config webpack/server.js & NODE_ENV=development node index",
+    "devw": "start cross-env NODE_ENV=development webpack --watch --config webpack/server.js & start cross-env NODE_ENV=development node index",
     "eslint": "eslint ./src --ext .js,.jsx",
     "jscs": "jscs .",
     "start": "cross-env NODE_ENV=production node index"
@@ -35,6 +36,7 @@
     "nodeify": "^1.0.0",
     "normalize.css": "^3.0.3",
     "react": "^0.14.0",
+    "react-addons-css-transition-group": "^15.1.0",
     "react-dom": "^0.14.0",
     "react-dropzone": "^3.1.0",
     "react-facebook-login": "^2.0.5",
