@@ -1,6 +1,6 @@
-import React from 'react';
-import {Provider} from 'react-redux';
-import DevTools from './DevTools';
+import React from 'react'
+import {Provider} from 'react-redux'
+import DevTools from './DevTools'
 
 export default class Root extends React.Component {
   render() {
@@ -11,6 +11,6 @@ export default class Root extends React.Component {
           <DevTools/>
         </div>
       </Provider>
-    );
+    )
   }
 }

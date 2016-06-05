@@ -1,4 +1,4 @@
-import keyMirror from 'keymirror';
+import keyMirror from 'keymirror'
 
 export const ActionTypes = keyMirror({
   DEHYDRATE: null,
@@ -25,4 +25,4 @@ export const ActionTypes = keyMirror({
   POSTCOMMENT: null,
   POSTCOMMENT_SUCCESS: null,
   POSTCOMMENT_FAILED: null
-});
+})
