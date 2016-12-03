@@ -21,7 +21,8 @@ export default class CommentsBar extends React.Component {
         super(props, context);
         this.state = {
             comments: [],
-            loading: true
+            loading: true,
+            comment: ''
         }
 
 
@@ -64,15 +65,24 @@ export default class CommentsBar extends React.Component {
             </li>
         )
     }
+
+    handleChange(event) {
+        this.setState({comment: event.target.value});
+      }
+
     handleSubmit() {
-      var value = this.refs.commentMessage.refs.input.value;
+      var value = this.state.comment;
         if(value.length > 0) {
 
           let comments = this.state.comments;
           nodeify(this.props.dispatch(postComment(this.props.fileId, value)), this.newComment.bind(this));
-          this.refs.commentMessage.refs.input.value = '';
+          this.setState({comment: ''});
         }
     }
+
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
 
     render() {
         let commentsContent;
@@ -98,29 +108,24 @@ export default class CommentsBar extends React.Component {
         return (
             <div className="sidebar">
                 <div>
-                    <div className="adsoptimal-slot" style={{
-                        width: "300px",
-                        height: "250px"
-                    }}></div>
+                    <div className="file-info">
+                        {!this.props.file.title && <div className="file-info-title">Here</div>}
+                        <div><i className="icon-time"/> {moment(this.props.file.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                        <div><i className="icon-doc"/> {this.capitalizeFirstLetter(this.props.file.type)}</div>
+                        <div><i className="icon-click"/> {this.props.file.views ? this.props.file.views : "0"} Views</div>
+                        <div><i className="icon-comment"/> {this.props.file.comments ? this.props.file.comments + ' Comments' : '0 Comments'}</div>
+                    </div>
                 </div>
                 <div className="comments">
                     {commentsContent}
                 </div>
                 <div className="bottom">
-                    <Form style={{
-                        padding: '10px'
-                    }}>
-                        <FormInput autofocus placeholder="Enter email" style={{
-                            minHeight: 'initial'
-                        }} ref="commentMessage" name="basic-form-input-email" multiline/>
-                        <div style={{
-                            float: 'right',
-                            marginTop: '5px',
-                            marginBottom: '5px'
-                        }}>
-                            <Button onClick={this.handleSubmit.bind(this)}>Submit</Button>
-                        </div>
-                    </Form>
+                    <div className="input-group comment-form">
+      <textarea className="form-control comment-input" placeholder="Write a comment..." value={this.state.comment} onChange={this.handleChange.bind(this)}/>
+      <span className="input-group-btn">
+        <button className="btn btn-secondary comment-btn" type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
+      </span>
+    </div>
                 </div>
             </div>
         )

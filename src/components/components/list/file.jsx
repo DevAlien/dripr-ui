@@ -38,15 +38,17 @@ export default class Login extends React.Component {
     let cl = this.getClass(data.type);
     return (
       <div key={data.id} className="cont">
-          <Link to={"/file/" + data.hash}>
-              <div className={cl} style={style}></div>
+          <Link to={"/file/" + data.hash} className="single-file">
+              <div className={cl} style={style}>
+                <div className="listDetail">
+                  <div><i className="icon-time"/> {moment(data.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+                  <div><i className="icon-doc"/> {this.capitalizeFirstLetter(data.type)}</div>
+                  <div><i className="icon-click"/> {data.views ? data.views : "0"} Views</div>
+                  <div><i className="icon-comment"/> {data.comments ? data.comments + ' Comments' : '0 Comments'}</div>
+                </div>
+              </div>
           </Link>
-          <div className="listDetail">
-            <div><i className="icon-time"/> {moment(data.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
-            <div><i className="icon-doc"/> {this.capitalizeFirstLetter(data.type)}</div>
-            <div><i className="icon-click"/> {data.views ? data.views : "0"} Views</div>
-            <div><i className="icon-comment"/> {data.comments ? data.comments + ' Comments' : '0 Comments'}</div>
-          </div>
+          
       </div>
 
     );

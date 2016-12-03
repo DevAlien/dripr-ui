@@ -11,7 +11,7 @@
     "jscs": "jscs .",
     "start": "cross-env NODE_ENV=production node index"
   },
-  "author": "Goncalo Margalho <gsky89@gmail.com> (http://zespia.tw)",
+  "author": "Goncalo Margalho <gsky89@gmail.com> (http://dripr.io)",
   "repository": "DevAlien/dripr-ui",
   "dependencies": {
     "bluebird": "^3.0.5",

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../assets/st.less';
+import '../../assets/sty.css';
 import Header from '../components/Header'
 import {loadUser} from '../../actions/data';
 import nodeify from 'nodeify';

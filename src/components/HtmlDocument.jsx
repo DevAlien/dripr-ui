@@ -2,7 +2,7 @@ import React from 'react';
 import serialize from 'serialize-javascript';
 import {ActionTypes} from '../constants';
 import Helmet from 'react-helmet';
-
+import asd from 'file!../assets/sty.css';
 export default class HtmlDocument extends React.Component {
   static propTypes = {
     webpackStats: React.PropTypes.object.isRequired,
@@ -36,7 +36,9 @@ export default class HtmlDocument extends React.Component {
           <title>{app.title}</title>
           <meta name="google-site-verification" content="x0BVFv1kzbxAKxKNFc2uFscZw4HkTcwfxoUMsQISOAk" />
           <meta httpEquiv='X-UA-Compatible' content='IE=edge'/>
-          <link href='//fonts.googleapis.com/css?family=Roboto:400,300italic,300' rel='stylesheet' type='text/css' />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"/>
+          <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css" />
+          <link rel="stylesheet" href={asd} />
           {head.title.toComponent()}
           {head.meta.toComponent()}
           {head.link.toComponent()}

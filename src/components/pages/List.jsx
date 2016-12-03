@@ -35,15 +35,11 @@ export default class List extends React.Component {
         })
         for (var key in el) {
           if (el.hasOwnProperty(key)) {
-            elements.push(
-              <div key={key} style={{clear: "both"}}><span className="month">{moment(key, "YYYYMM").format("MMMM YYYY")}</span>
-            <hr className="monthBar"/>
-            <div>{el[key]}</div>
-          </div>)
+            elements.push(<div>{el[key]}</div>)
           }
         }
         return(
-            <div className="listContainer">
+            <div className="list-container">
                 {elements.reverse()}
             </div>
         );

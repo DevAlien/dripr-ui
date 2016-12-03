@@ -13,6 +13,8 @@ import {Glyph} from 'elemental';
 
 import config from '../../../config';
 
+import IconLogo from './icons/IconLogo';
+
 @connect(state => {
   return {...state}}, (dispatch) => ({dispatch}))
 export default class Header extends React.Component {
@@ -69,7 +71,43 @@ export default class Header extends React.Component {
   		});
   	}
 
-    render () {
+    render() {
+      const state = this.props;
+
+      return (<nav id="topNav" className="navbar navbar-default navbar-fixed-top">
+        <div className="container">
+            <button className="navbar-toggler hidden-md-up pull-right" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+                ☰
+            </button>
+            <Link className="navbar-brand page-scroll" to="/"><IconLogo className="header-logo"/></Link>
+            <div className="collapse navbar-toggleable-sm" id="collapsingNavbar">
+                <ul className="nav navbar-nav">
+                    {(state.app && state.app.user && state.app.user.name) &&
+                      <li className="nav-item">
+                        <Link className="nav-link page-scroll menu" to="/list">{state.app.user.name}</Link>
+                      </li>
+                    }
+                </ul>
+                <ul className="nav navbar-nav pull-xs-right" style={{float: 'right'}}>
+                    {(!state.app || !state.app.user || !state.app.user.name) &&
+                      <li className="nav-item">
+                        <Link className="nav-link page-scroll menu" to="/login">Sign Up</Link>
+                      </li>
+                    }
+                    {state.app && state.app.user && state.app.user.name &&
+                      <li className="nav-item">
+                        <Link className="nav-link page-scroll menu" to="/logout">Logout</Link>
+                      </li>
+                    }
+                    <li className="nav-item">
+                        <Link href="#one" className="btn btn-primary btn-sm" style={{marginTop: "15px"}} to="/downloads">Download</Link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>);
+    }
+    renderw () {
       const state = this.props;
       var height = (this.state.windowWidth < 768) ? this.state.windowHeight : 'auto';
       var menuClass = this.state.mobileMenuIsVisible ? 'primary-nav-menu is-visible' : 'primary-nav-menu is-hidden';
