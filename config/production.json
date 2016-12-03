@@ -1,0 +1,10 @@
+{
+  "port": 8100,
+  "host": "0.0.0.0",
+  "apiUrl": "https://api.dripr.io",
+  "facebookToken": "103491386705646",
+  "config": {
+  	"googleAnalytics": "UA-63854870-1",
+  	"adsOptimal": "25341"
+  }
+}
