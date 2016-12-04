@@ -43,6 +43,11 @@ export default class HtmlDocument extends React.Component {
           {head.meta.toComponent()}
           {head.link.toComponent()}
           {styles.map((href, key) => <link rel='stylesheet' type='text/css' href={href} key={key}/>)}
+          <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+          <script dangerouslySetInnerHTML={{__html: `(adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-2248207030988319",
+              enable_page_level_ads: true
+            })`}} />
         </head>
         <body>
           <div id='root' dangerouslySetInnerHTML={{__html: content}}/>
