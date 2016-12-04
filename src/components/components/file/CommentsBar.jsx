@@ -24,21 +24,8 @@ export default class CommentsBar extends React.Component {
             loading: true,
             comment: ''
         }
-
-
-        if (__CLIENT__ && __ADSOPTIMAL__) {
-            (function(w) {
-                var d = document,
-                    h = d.getElementsByTagName('head')[0],
-                    j = d.createElement('script'),
-                    k = d.createElement('script');
-                j.setAttribute('src', '//cdn.adsoptimal.com/advertisement/settings/__ADSOPTIMAL__.js');
-                k.setAttribute('src', '//cdn.adsoptimal.com/advertisement/manual.js');
-                h.appendChild(j);
-                h.appendChild(k);
-            })(window);
-        }
     }
+
     componentDidMount() {
       nodeify(this.props.dispatch(getComments(this.props.fileId)), this.getComments.bind(this));
     }
@@ -46,6 +33,7 @@ export default class CommentsBar extends React.Component {
     getComments(error, result) {
         this.setState({comments: result.result, loading: false});
     }
+    
     newComment(error, result) {
         let comments = this.state.comments;
         comments.push(result.result)
@@ -121,7 +109,7 @@ export default class CommentsBar extends React.Component {
                 </div>
                 <div className="bottom">
                     <div className="input-group comment-form">
-      <textarea className="form-control comment-input" placeholder="Write a comment..." value={this.state.comment} onChange={this.handleChange.bind(this)}/>
+      <textarea style={{border: "1px solid transparent"}} className="form-control comment-input" placeholder="Write a comment..." value={this.state.comment} onChange={this.handleChange.bind(this)}/>
       <span className="input-group-btn">
         <button className="btn btn-secondary comment-btn" type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
       </span>

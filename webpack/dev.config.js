@@ -5,7 +5,7 @@ import path from 'path';
 import * as config from './config';
 import writeStats from './utils/write-stats';
 import notifyStats from './utils/notify-stats';
-
+var Visualizer = require('webpack-visualizer-plugin');
 const babelrc = JSON.parse(fs.readFileSync(path.join(__dirname, '../.babelrc'), 'utf8'));
 
 export const client = merge({}, config.client, {
@@ -49,6 +49,7 @@ export const client = merge({}, config.client, {
     ])
   },
   plugins: config.client.plugins.concat([
+    new Visualizer(),
     // hot reload
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

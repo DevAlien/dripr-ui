@@ -5,7 +5,7 @@ import Loader from './loader';
 export default class HomeUpload extends React.Component {
     static propTypes = {
         onDrop: PropTypes.func.isRequired,
-        isUploaing: PropTypes.bool.required
+        isUploading: PropTypes.bool.isRequired
     }
 
     constructor(props, context) {

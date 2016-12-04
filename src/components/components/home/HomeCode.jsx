@@ -36,7 +36,7 @@ export default class HomeCode extends React.Component {
                 <div style={{marginTop: '20px'}}>
                     <textarea value={this.state.text} onChange={this.changeText.bind(this)} className="form-control f-code-text" rows="5"></textarea>
                     <select className="form-control f-code-select" value={this.state.value} onChange={this.handleChange.bind(this)}>
-                        {this.textTypeOptions.map((o) => <option value={o.value}>{o.label}</option>)}
+                        {this.textTypeOptions.map((o) => <option value={o.value} key={'cs-' + o.value}>{o.label}</option>)}
                     </select>
                     <div className="btn btn-primary btn-lg" style={{marginTop: "15px"}} onClick={this.submit.bind(this)}>Submit</div>
                 </div>

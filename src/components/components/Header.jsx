@@ -100,7 +100,7 @@ export default class Header extends React.Component {
                       </li>
                     }
                     <li className="nav-item">
-                        <Link href="#one" className="btn btn-primary btn-sm" style={{marginTop: "15px"}} to="/downloads">Download</Link>
+                        <Link href="#one" className="btn btn-primary btn-sm" style={{marginTop: "15px"}} to="/?section=download">Download</Link>
                     </li>
                 </ul>
             </div>

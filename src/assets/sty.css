@@ -68,7 +68,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #222;
+    color: #5D6F7D;
     outline: 0;
 }
 
@@ -652,4 +652,9 @@ img::-moz-selection {
 
 .card-block {
     padding: 1.25rem 0;
+}
+
+.dload-btn:hover, .dload-btn:focus {
+    color: inherit;
+    text-decoration: none;
 }

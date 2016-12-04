@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import merge from 'lodash/object/merge';
 import fs from 'graceful-fs';
 import config from '../config';
-console.log(config)
+
 const commonConfig = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.json']
