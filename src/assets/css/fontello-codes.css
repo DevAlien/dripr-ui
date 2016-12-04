@@ -2,3 +2,9 @@
 .icon-time:before { content: '\e800'; } /* '' */
 .icon-click:before { content: '\e801'; } /* '' */
 .icon-comment:before { content: '\e802'; } /* '' */
+.icon-view:before { content: '\e803'; } /* '' */
+.icon-doc:before { content: '\e804'; } /* '' */
+.icon-calendar:before { content: '\e805'; } /* '' */
+.icon-twitter-circled:before { content: '\e806'; } /* '' */
+.icon-facebook-circled:before { content: '\e807'; } /* '' */
+.icon-github-circled:before { content: '\e808'; } /* '' */

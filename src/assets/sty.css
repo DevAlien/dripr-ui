@@ -658,3 +658,10 @@ img::-moz-selection {
     color: inherit;
     text-decoration: none;
 }
+
+.nav-social {
+    padding-top: 17px;
+}
+.nav-social a:hover {
+    text-decoration: none;
+}

@@ -89,9 +89,14 @@ export default class Header extends React.Component {
                     }
                 </ul>
                 <ul className="nav navbar-nav pull-xs-right" style={{float: 'right'}}>
+                    <li className="nav-item nav-social">
+                      <a href="https://www.facebook.com/dripr" className="icon-facebook-circled" />
+                      <a href="https://twitter.com/Driprio" className="icon-twitter-circled" />
+                      <a href="https://github.com/DevAlien/dripr-ui" className="icon-github-circled" />
+                    </li>
                     {(!state.app || !state.app.user || !state.app.user.name) &&
                       <li className="nav-item">
-                        <Link className="nav-link page-scroll menu" to="/login">Sign Up</Link>
+                        <Link className="nav-link page-scroll menu" to="/login">Login</Link>
                       </li>
                     }
                     {state.app && state.app.user && state.app.user.name &&
@@ -100,7 +105,7 @@ export default class Header extends React.Component {
                       </li>
                     }
                     <li className="nav-item">
-                        <Link href="#one" className="btn btn-primary btn-sm" style={{marginTop: "15px"}} to="/?section=download">Download</Link>
+                        <Link href="#d" className="btn btn-primary btn-sm" style={{marginTop: "15px"}} to="/?section=download">Download</Link>
                     </li>
                 </ul>
             </div>
