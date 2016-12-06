@@ -50,7 +50,7 @@ export default class Home extends React.Component {
                 <div className="header-content">
                   <div className="inner">
                     <h1 className="home-title">Share files, <b className="home-title-b">the simple way</b></h1>
-                    <span className="home-subtitle">You can signup for free via facebook to have an history of your actions in dripr.io, in the future we will limit some actions for anonymous users</span>
+                    <span className="home-subtitle">We're completely free and there is no need to sign up. But if you want unlimited file uploads and lots of awesome features - It take seconds to sign up with facebook</span>
                     <div className="row">
                       <div className="col-sm-12">
                         <div className="row">
