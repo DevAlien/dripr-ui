@@ -665,3 +665,7 @@ img::-moz-selection {
 .nav-social a:hover {
     text-decoration: none;
 }
+
+.file pre{
+  text-align: left;
+}
