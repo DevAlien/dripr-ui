@@ -37,7 +37,6 @@ export default function apiClient(token) {
     },
 
     postFile: function(files) {
-      console.log('filess', files)
       let data = new FormData();
       files.forEach(file => {
         data.append('file', file)
